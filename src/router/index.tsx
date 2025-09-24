@@ -220,8 +220,8 @@ export const navigation = {
         if (route) {
           breadcrumbs.push({ name: route.name, path: route.path });
           
-          // Handle nested routes (like analytics subroutes)
-          if (segments.length >= 3 && route.children) {
+          // Handle nested routes (like analytics subroutes) - Fixed type safety issue
+          if (segments.length >= 3 && 'children' in route && route.children) {
             const subsection = segments[2];
             const childRoute = route.children[subsection as keyof typeof route.children];
             if (childRoute) {
