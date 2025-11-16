@@ -218,16 +218,16 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
           })
         );
         // Clean up month format for response
-        const cleanedData = (retryResult.Items || []).map((item) => ({
+        const cleanedData = (retryResult.Items || []).map((item: Record<string, unknown>) => ({
           ...item,
-          month: item.month.split('-')[1],
+          month: (item.month as string).split('-')[1],
         }));
         return createResponse(200, cleanedData);
       }
 
-      const cleanedData = result.Items.map((item) => ({
+      const cleanedData = result.Items.map((item: Record<string, unknown>) => ({
         ...item,
-        month: item.month.split('-')[1],
+        month: (item.month as string).split('-')[1],
       }));
       return createResponse(200, cleanedData);
     }
@@ -283,8 +283,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
           })
         );
         // Transform to match expected format
-        const activities = (retryResult.Items || []).map((item) => ({
-          id: parseInt(item.id, 10),
+        const activities = (retryResult.Items || []).map((item: Record<string, unknown>) => ({
+          id: parseInt(item.id as string, 10),
           activity: item.activityType,
           user: item.user,
           time: item.time,
@@ -293,8 +293,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         return createResponse(200, activities);
       }
 
-      const activities = result.Items.map((item) => ({
-        id: parseInt(item.id, 10),
+      const activities = result.Items.map((item: Record<string, unknown>) => ({
+        id: parseInt(item.id as string, 10),
         activity: item.activityType,
         user: item.user,
         time: item.time,
