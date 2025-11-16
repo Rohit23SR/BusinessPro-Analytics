@@ -5,7 +5,7 @@ import LineChart from '../components/charts/LineChart';
 import BarChart from '../components/charts/BarChart';
 import PieChart from '../components/charts/PieChart';
 import AreaChart from '../components/charts/AreaChart';
-import HeatMap from '../components/charts/HeatMap';
+import HeatMap from '../components/charts/Heatmap';
 
 // Sample data for product sales trends
 const productSalesData = [

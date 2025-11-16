@@ -5,7 +5,7 @@ import { useAnalyticsDashboard, useAnalyticsInsights } from '../hooks/useAnalyti
 import { useUrlFilters } from '../hooks/useNavigation';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { LineChart, AreaChart } from '../components/charts';
-import HeatMap from '../components/charts/HeatMap';
+import HeatMap from '../components/charts/Heatmap';
 
 // Fixed device traffic data with consistent structure
 const deviceTrafficData = [
