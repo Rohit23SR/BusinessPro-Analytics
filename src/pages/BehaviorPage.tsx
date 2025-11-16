@@ -3,7 +3,7 @@ import { MousePointer, Eye, Clock, Smartphone } from 'lucide-react';
 import { useUserBehavior } from '../hooks/useAnalytics';
 import { useUrlFilters } from '../hooks/useNavigation';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
-import HeatMap from '../components/charts/HeatMap';
+import Heatmap from '../components/charts/Heatmap';
 import UserJourneySankey from '../components/charts/UserJourneySankey'; // Import the new component
 
 const featureUsageData = [
@@ -86,7 +86,7 @@ const BehaviorPage = () => {
         </div>
         
         <div className="bg-white rounded-lg p-4">
-          <HeatMap 
+          <Heatmap
             data={featureUsageData}
             title="Feature Usage by User Segment"
           />
