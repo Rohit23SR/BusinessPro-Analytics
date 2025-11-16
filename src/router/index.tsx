@@ -7,6 +7,7 @@ import RootLayout from '../components/layout/RootLayout';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
+import ProtectedRoute from '../components/auth/ProtectedRoute';
 
 // Lazy load page components for code splitting
 const DashboardPage = lazy(() => import('../pages/DashboardPage'));
@@ -22,6 +23,10 @@ const CustomersPage = lazy(() => import('../pages/CustomersPage'));
 const ProductsPage = lazy(() => import('../pages/ProductsPage'));
 const SettingsPage = lazy(() => import('../pages/SettingsPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+
+// Auth pages
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 
 // Wrapper component for lazy-loaded components
 const LazyWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -43,9 +48,30 @@ export const router = createBrowserRouter([
         index: true,
         element: <Navigate to="/dashboard" replace />,
       },
+      // Auth routes (public)
+      {
+        path: 'login',
+        element: (
+          <LazyWrapper>
+            <LoginPage />
+          </LazyWrapper>
+        ),
+      },
+      {
+        path: 'register',
+        element: (
+          <LazyWrapper>
+            <RegisterPage />
+          </LazyWrapper>
+        ),
+      },
       {
         path: 'dashboard',
-        element: <DashboardLayout />,
+        element: (
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,

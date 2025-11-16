@@ -16,14 +16,13 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Theme Preference
           </label>
-          <select 
+          <select
             value={settings.theme}
-            onChange={(e) => onSettingChange('theme', e.target.value)}
+            onChange={(e) => onSettingChange('theme', e.target.value as 'light' | 'dark')}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
-            <option value="system">System</option>
           </select>
         </div>
 
@@ -31,9 +30,9 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Language
           </label>
-          <select 
+          <select
             value={settings.language}
-            onChange={(e) => onSettingChange('language', e.target.value)}
+            onChange={(e) => onSettingChange('language', e.target.value as 'en' | 'es' | 'fr' | 'de')}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="en">English</option>
@@ -47,7 +46,7 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Timezone
           </label>
-          <select 
+          <select
             value={settings.timezone}
             onChange={(e) => onSettingChange('timezone', e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -63,9 +62,9 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Currency
           </label>
-          <select 
+          <select
             value={settings.currency}
-            onChange={(e) => onSettingChange('currency', e.target.value)}
+            onChange={(e) => onSettingChange('currency', e.target.value as 'USD' | 'EUR' | 'GBP' | 'JPY')}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="USD">USD ($)</option>

@@ -1,6 +1,7 @@
 // Main dashboard page component
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useDashboardOverview, useRefreshDashboard } from '../hooks/useDashboard';
 import { useUrlFilters } from '../hooks/useNavigation';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
@@ -83,9 +84,11 @@ const seriesConfig = [
 
 const DashboardPage = () => {
   const { filters } = useUrlFilters();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [refreshing, setRefreshing] = useState(false);
   const [dataIndex, setDataIndex] = useState(0);
-  
+  const hasHandledRefresh = useRef(false);
+
   const {
     kpis,
     revenue,
@@ -104,16 +107,35 @@ const DashboardPage = () => {
     try {
       // Cycle through datasets for mock refresh
       setDataIndex((prev) => (prev + 1) % 3);
-      
+
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       // Uncomment this if you want to call actual refresh API
       // await refreshDashboard.mutateAsync(filters.timeframe);
     } finally {
       setRefreshing(false);
     }
   };
+
+  // Handle action=refresh from URL (triggered by search action)
+  useEffect(() => {
+    const action = searchParams.get('action');
+    if (action === 'refresh' && !hasHandledRefresh.current && !refreshing) {
+      hasHandledRefresh.current = true;
+
+      // Remove the action param from URL to prevent repeated refreshes
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete('action');
+      setSearchParams(newParams, { replace: true });
+
+      // Trigger the actual refresh
+      handleRefresh();
+    } else if (action !== 'refresh') {
+      // Reset the ref when action is not refresh
+      hasHandledRefresh.current = false;
+    }
+  }, [searchParams, setSearchParams, refreshing]);
 
   if (isLoading && dataIndex === 0) {
     return <LoadingSpinner text="Loading dashboard..." />;
@@ -330,9 +352,12 @@ const DashboardPage = () => {
               Consider increasing marketing spend on high-performing channels.
             </p>
           </div>
-          <button className="px-4 py-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors">
+          <Link
+            to="/dashboard/analytics"
+            className="px-4 py-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors"
+          >
             View Analytics →
-          </button>
+          </Link>
         </div>
       </div>
     </div>

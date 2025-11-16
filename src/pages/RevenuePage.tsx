@@ -1,5 +1,6 @@
 // Revenue analytics page
-import { DollarSign, TrendingUp, TrendingDown, Target, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { DollarSign, TrendingUp, TrendingDown, Target, Calendar, X } from 'lucide-react';
 import { useRevenueTrends, useTopProducts } from '../hooks/useDashboard';
 import { useUrlFilters } from '../hooks/useNavigation';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
@@ -32,12 +33,18 @@ const RevenuePage = () => {
   const revenueQuery = useRevenueTrends(filters.timeframe === '12m' ? '12m' : '6m');
   const productsQuery = useTopProducts(filters.timeframe, 10);
 
+  // Goal modal state
+  const [showGoalModal, setShowGoalModal] = useState(false);
+  const [newGoalAmount, setNewGoalAmount] = useState('');
+  const [customGoal, setCustomGoal] = useState<number | null>(null);
+  const [goalSaved, setGoalSaved] = useState(false);
+
   if (revenueQuery.isLoading) {
     return <LoadingSpinner text="Loading revenue data..." />;
   }
 
   // Use API data if available, otherwise use sample data
-  const revenueData = revenueQuery.data && revenueQuery.data.length > 0 ? revenueQuery.data : 
+  const revenueData = revenueQuery.data && revenueQuery.data.length > 0 ? revenueQuery.data :
     // Convert chart data to match expected format
     revenueChartData.map(item => ({
       month: item.x,
@@ -48,6 +55,25 @@ const RevenuePage = () => {
 
   const totalRevenue = revenueData.reduce((sum, item) => sum + item.revenue, 0);
   const totalOrders = revenueData.reduce((sum, item) => sum + item.orders, 0);
+
+  const handleSetGoal = () => {
+    const amount = parseFloat(newGoalAmount.replace(/,/g, ''));
+    if (!isNaN(amount) && amount > 0) {
+      setCustomGoal(amount);
+      setGoalSaved(true);
+      setTimeout(() => setGoalSaved(false), 3000);
+      setShowGoalModal(false);
+      setNewGoalAmount('');
+    }
+  };
+
+  const formatCurrency = (value: string) => {
+    const num = value.replace(/,/g, '').replace(/[^0-9]/g, '');
+    if (num) {
+      return parseInt(num).toLocaleString();
+    }
+    return '';
+  };
   const avgOrderValue = totalRevenue / totalOrders;
   const lastMonth = revenueData[revenueData.length - 1];
   const previousMonth = revenueData[revenueData.length - 2];
@@ -262,23 +288,109 @@ const RevenuePage = () => {
               </div>
               <div>
                 <div className="text-sm text-green-200">Target</div>
-                <div className="text-2xl font-bold">${lastMonth?.target?.toLocaleString()}</div>
+                <div className="text-2xl font-bold">
+                  ${customGoal ? customGoal.toLocaleString() : lastMonth?.target?.toLocaleString()}
+                </div>
               </div>
               <div>
                 <div className="text-sm text-green-200">Progress</div>
                 <div className="text-2xl font-bold">
-                  {lastMonth?.target ? Math.round((lastMonth.revenue / lastMonth.target) * 100) : 0}%
+                  {(customGoal || lastMonth?.target)
+                    ? Math.round((lastMonth.revenue / (customGoal || lastMonth.target)) * 100)
+                    : 0}%
                 </div>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <button className="px-6 py-3 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium">
+            <button
+              onClick={() => setShowGoalModal(true)}
+              className="px-6 py-3 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium"
+            >
               Set New Goal
             </button>
           </div>
         </div>
       </div>
+
+      {/* Goal Saved Notification */}
+      {goalSaved && (
+        <div className="fixed top-20 right-6 z-50 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center space-x-2">
+          <Target className="w-4 h-4" />
+          <span className="text-sm font-medium">New goal saved!</span>
+        </div>
+      )}
+
+      {/* Set New Goal Modal */}
+      {showGoalModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={() => setShowGoalModal(false)}
+          />
+          <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <Target className="w-5 h-5 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">Set Revenue Goal</h3>
+              </div>
+              <button
+                onClick={() => setShowGoalModal(false)}
+                className="p-1 hover:bg-gray-100 rounded transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Monthly Revenue Target
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                    $
+                  </span>
+                  <input
+                    type="text"
+                    value={newGoalAmount}
+                    onChange={(e) => setNewGoalAmount(formatCurrency(e.target.value))}
+                    placeholder="250,000"
+                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg"
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  Current month revenue: ${lastMonth?.revenue?.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-600">
+                  Setting a clear revenue goal helps track your business performance and identify areas for improvement.
+                </p>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowGoalModal(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSetGoal}
+                  disabled={!newGoalAmount}
+                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Save Goal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

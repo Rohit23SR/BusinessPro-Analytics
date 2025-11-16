@@ -340,7 +340,7 @@ export const realtimeApi = {
   getLiveActivity: async (): Promise<ApiResponse<LiveActivity[]>> => {
     await delay(Math.random() * 150 + 100); // 100-250ms delay
     
-    const users = ['John Doe', 'Jane Smith', 'Mike Johnson', 'Sarah Wilson', 'Alex Chen', 'Emma Davis'];
+    const users = ['John Smith', 'Jane Smith', 'Mike Johnson', 'Sarah Wilson', 'Alex Chen', 'Emma Davis'];
     const activities = ['New Order', 'Payment Received', 'User Registration', 'Subscription Upgrade'];
     
     // Simulate new activities

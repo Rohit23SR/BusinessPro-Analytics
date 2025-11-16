@@ -7,11 +7,21 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "amplify:sandbox": "npx ampx sandbox",
+    "amplify:deploy": "npx ampx deploy",
+    "amplify:generate": "npx ampx generate graphql-client-code --out src/graphql"
   },
   "dependencies": {
+    "@aws-amplify/backend": "^1.18.0",
+    "@aws-amplify/backend-cli": "^1.8.0",
     "@tanstack/react-query": "^5.59.0",
     "@tanstack/react-query-devtools": "^5.59.0",
+    "aws-amplify": "^6.15.8",
     "d3": "^7.9.0",
     "lucide-react": "^0.454.0",
     "react": "^18.3.1",
@@ -20,19 +30,25 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/d3": "^7.4.3",
     "@types/node": "^24.4.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "@vitest/coverage-v8": "^4.0.9",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "jsdom": "^27.2.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.9.2",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "vitest": "^4.0.9"
   }
 }
