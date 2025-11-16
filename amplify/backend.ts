@@ -94,7 +94,6 @@ const userPoolClient = new UserPoolClient(infraStack, 'BusinessDashboardUserPool
 // ===== DYNAMODB TABLES =====
 // KPIs Table
 const kpisTable = new Table(infraStack, 'KPIsTable', {
-  tableName: 'business-dashboard-kpis',
   partitionKey: { name: 'timeframe', type: AttributeType.STRING },
   sortKey: { name: 'title', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
@@ -102,7 +101,6 @@ const kpisTable = new Table(infraStack, 'KPIsTable', {
 
 // Revenue Table
 const revenueTable = new Table(infraStack, 'RevenueTable', {
-  tableName: 'business-dashboard-revenue',
   partitionKey: { name: 'timeframe', type: AttributeType.STRING },
   sortKey: { name: 'month', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
@@ -110,7 +108,6 @@ const revenueTable = new Table(infraStack, 'RevenueTable', {
 
 // Traffic Sources Table
 const trafficTable = new Table(infraStack, 'TrafficSourcesTable', {
-  tableName: 'business-dashboard-traffic',
   partitionKey: { name: 'timeframe', type: AttributeType.STRING },
   sortKey: { name: 'name', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
@@ -118,14 +115,12 @@ const trafficTable = new Table(infraStack, 'TrafficSourcesTable', {
 
 // Activities Table
 const activitiesTable = new Table(infraStack, 'ActivitiesTable', {
-  tableName: 'business-dashboard-activities',
   partitionKey: { name: 'id', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
 });
 
 // Products Table
 const productsTable = new Table(infraStack, 'ProductsTable', {
-  tableName: 'business-dashboard-products',
   partitionKey: { name: 'timeframe', type: AttributeType.STRING },
   sortKey: { name: 'name', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
@@ -133,14 +128,12 @@ const productsTable = new Table(infraStack, 'ProductsTable', {
 
 // Analytics Snapshots Table
 const analyticsTable = new Table(infraStack, 'AnalyticsTable', {
-  tableName: 'business-dashboard-analytics',
   partitionKey: { name: 'timeframe', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
 });
 
 // User Settings Table
 const userSettingsTable = new Table(infraStack, 'UserSettingsTable', {
-  tableName: 'business-dashboard-user-settings',
   partitionKey: { name: 'userId', type: AttributeType.STRING },
   sortKey: { name: 'settingType', type: AttributeType.STRING },
   billingMode: BillingMode.PAY_PER_REQUEST,
