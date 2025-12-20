@@ -2,6 +2,10 @@
 
 A modern, full-featured business analytics dashboard built with React, TypeScript, and AWS Amplify Gen 2. Track revenue, customers, conversions, and traffic with real-time data visualization and cloud-synced settings.
 
+## Live Demo
+
+**Deployed Application:** [https://main.d2mh65j13852hw.amplifyapp.com](https://main.d2mh65j13852hw.amplifyapp.com)
+
 ## Features
 
 ### Dashboard & Analytics
