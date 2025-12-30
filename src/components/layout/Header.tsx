@@ -442,9 +442,9 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
         </div>
 
         {/* Right section */}
-        <div className="flex items-center space-x-4">
-          {/* Time range selector */}
-          <div className="relative">
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Time range selector - Hidden on mobile */}
+          <div className="relative hidden md:block">
             <select
               value={timeframe}
               onChange={(e) => handleTimeframeChange(e.target.value)}
@@ -475,7 +475,7 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
 
             {/* Notifications dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[500px] overflow-hidden">
+              <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[70vh] sm:max-h-[500px] overflow-hidden">
                 {/* Header */}
                 <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20">
                   <div className="flex items-center justify-between">
@@ -500,7 +500,7 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
                 </div>
 
                 {/* Notifications list */}
-                <div className="max-h-[380px] overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
+                <div className="max-h-[50vh] sm:max-h-[380px] overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
                   {notifications.length === 0 ? (
                     <div className="px-4 py-8 text-center">
                       <Bell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
@@ -575,10 +575,10 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
             )}
           </div>
 
-          {/* Settings */}
+          {/* Settings - Hidden on mobile (accessible via user menu) */}
           <button
             onClick={handleSettingsClick}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="hidden sm:block p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
           >
             <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
           </button>
@@ -599,20 +599,20 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
 
             {/* User dropdown menu */}
             {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+              <div className="absolute right-0 mt-2 w-56 sm:w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                 {/* User Info Section */}
                 <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-medium text-white">
                         {user?.email ? user.email.substring(0, 2).toUpperCase() : 'U'}
                       </span>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                         {user?.email?.split('@')[0] || 'User'}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email || 'Not signed in'}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email || 'Not signed in'}</p>
                     </div>
                   </div>
                 </div>
