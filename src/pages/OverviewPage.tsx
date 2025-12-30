@@ -371,7 +371,7 @@ const OverviewPage = () => {
         {/* Traffic Trends with Toggle */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Trends</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Trends</h3>
             <div className="flex space-x-2">
               <button 
                 onClick={() => setActiveChart('sessions')}
@@ -425,7 +425,7 @@ const OverviewPage = () => {
         {/* Conversion Funnel */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
             <button
               onClick={() => navigate('/dashboard/conversions')}
               className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors"
@@ -471,7 +471,7 @@ const OverviewPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Top Landing Pages */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Landing Pages</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Landing Pages</h3>
           
           {pages.isLoading ? (
             <LoadingSpinner size="sm" />
@@ -498,7 +498,7 @@ const OverviewPage = () => {
 
         {/* AI Insights */}
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-lg p-6 border border-indigo-100 dark:border-indigo-800">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">🧠 AI-Powered Insights</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">🧠 AI-Powered Insights</h3>
           
           {insights.isLoading ? (
             <LoadingSpinner size="sm" />
@@ -530,7 +530,7 @@ const OverviewPage = () => {
       {/* User Behavior Heatmap */}
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">User Activity Heatmap</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">User Activity Heatmap</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setHeatmapView('hourly')}
@@ -579,7 +579,7 @@ const OverviewPage = () => {
 
       {/* Device Breakdown */}
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Device Breakdown</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Device Breakdown</h3>
         
         {behavior.isLoading ? (
           <LoadingSpinner size="sm" />
@@ -611,45 +611,45 @@ const OverviewPage = () => {
       </div>
 
       {/* Performance Summary */}
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-6 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-xl font-bold mb-2">📊 Analytics Summary</h3>
-            <p className="text-indigo-100 mb-4">
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-4 sm:p-6 text-white">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="text-lg sm:text-xl font-bold mb-2">📊 Analytics Summary</h3>
+            <p className="text-sm sm:text-base text-indigo-100 mb-4">
               Your analytics show strong performance with room for optimization
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <div>
-                <div className="text-sm text-indigo-200">Sessions</div>
-                <div className="text-lg font-bold">
+                <div className="text-xs sm:text-sm text-indigo-200">Sessions</div>
+                <div className="text-base sm:text-lg font-bold">
                   {overview.data?.totalSessions.toLocaleString() || '0'}
                 </div>
               </div>
               <div>
-                <div className="text-sm text-indigo-200">Page Views</div>
-                <div className="text-lg font-bold">
+                <div className="text-xs sm:text-sm text-indigo-200">Page Views</div>
+                <div className="text-base sm:text-lg font-bold">
                   {overview.data?.pageViews.toLocaleString() || '0'}
                 </div>
               </div>
               <div>
-                <div className="text-sm text-indigo-200">Bounce Rate</div>
-                <div className="text-lg font-bold">
+                <div className="text-xs sm:text-sm text-indigo-200">Bounce Rate</div>
+                <div className="text-base sm:text-lg font-bold">
                   {overview.data?.bounceRate || 0}%
                 </div>
               </div>
               <div>
-                <div className="text-sm text-indigo-200">Avg Duration</div>
-                <div className="text-lg font-bold">
+                <div className="text-xs sm:text-sm text-indigo-200">Avg Duration</div>
+                <div className="text-base sm:text-lg font-bold">
                   {overview.data?.avgSessionDuration || '0m 0s'}
                 </div>
               </div>
             </div>
           </div>
-          <div className="text-right">
+          <div className="lg:text-right">
             <button
               onClick={handleGenerateReport}
               disabled={isGeneratingReport}
-              className="px-6 py-3 bg-white dark:bg-gray-800 bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="w-full lg:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-white dark:bg-gray-800 bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isGeneratingReport ? (
                 <>

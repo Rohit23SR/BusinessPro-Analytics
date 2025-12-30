@@ -133,7 +133,7 @@ const ConversionsPage = () => {
       {/* Conversion Funnel with Working Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveFunnelTab('ecommerce')}
@@ -232,7 +232,7 @@ const ConversionsPage = () => {
 
       {/* Conversion Trends - Fixed */}
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion Rate Trends</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion Rate Trends</h3>
 
         <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
           <div className="w-full h-[350px] sm:h-[500px]">
@@ -254,7 +254,7 @@ const ConversionsPage = () => {
       {/* Conversion by Source */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion by Traffic Source</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion by Traffic Source</h3>
           
           <div className="space-y-4">
             {[
@@ -279,7 +279,7 @@ const ConversionsPage = () => {
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Optimization Opportunities</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Optimization Opportunities</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">

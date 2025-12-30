@@ -91,8 +91,8 @@ const RevenuePage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Revenue Analytics</h1>
-        <p className="text-gray-600 dark:text-gray-400">Track revenue performance, trends, and growth metrics</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Revenue Analytics</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Track revenue performance, trends, and growth metrics</p>
       </div>
 
       {/* Revenue Metrics */}
@@ -163,7 +163,7 @@ const RevenuePage = () => {
       {/* Revenue Chart - FIXED */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
           <div className="flex space-x-4">
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
@@ -199,7 +199,7 @@ const RevenuePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Monthly Breakdown */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Monthly Performance</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Monthly Performance</h3>
           
           <div className="space-y-4">
             {revenueData.slice(-6).map((month, index) => (
@@ -224,7 +224,7 @@ const RevenuePage = () => {
         {/* Top Revenue Products */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Top Revenue Products</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Top Revenue Products</h3>
             <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
               View All →
             </button>
@@ -332,7 +332,7 @@ const RevenuePage = () => {
                 <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
                   <Target className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Set Revenue Goal</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Set Revenue Goal</h3>
               </div>
               <button
                 onClick={() => setShowGoalModal(false)}

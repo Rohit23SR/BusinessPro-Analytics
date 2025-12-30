@@ -91,8 +91,8 @@ const ProductsPage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Product Analytics</h1>
-        <p className="text-gray-600 dark:text-gray-400">Track product performance, inventory, and customer preferences</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Product Analytics</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Track product performance, inventory, and customer preferences</p>
       </div>
 
       {/* Product Stats */}
@@ -149,7 +149,7 @@ const ProductsPage = () => {
       {/* Product Sales Trends */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Product Sales Trends</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Product Sales Trends</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveMetric('sales')}
@@ -193,7 +193,7 @@ const ProductsPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Top Products */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Performing Products</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Performing Products</h3>
           
           {/* Custom Product List Instead of Chart */}
           <div className="space-y-4">
@@ -257,7 +257,7 @@ const ProductsPage = () => {
 
         {/* Category Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Sales by Category</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Sales by Category</h3>
           <div className="h-[280px] sm:h-[350px] flex items-center justify-center">
             <PieChart
               data={categoryDistribution}
@@ -275,7 +275,7 @@ const ProductsPage = () => {
       {/* Product Performance Heatmap */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quarterly Performance by Category</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Quarterly Performance by Category</h3>
           <div className="text-sm text-gray-600 dark:text-gray-400">Performance Score (%)</div>
         </div>
 
@@ -291,7 +291,7 @@ const ProductsPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Inventory Levels */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Inventory Levels Trend</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Inventory Levels Trend</h3>
           <div className="w-full h-[300px]">
             <LineChart
               data={inventoryData}
@@ -316,7 +316,7 @@ const ProductsPage = () => {
 
         {/* Product Insights */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Product Insights</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Product Insights</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">

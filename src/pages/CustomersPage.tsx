@@ -90,8 +90,8 @@ const CustomersPage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Customer Management</h1>
-        <p className="text-gray-600 dark:text-gray-400">Manage your customer base and analyze customer behavior</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Customer Management</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Manage your customer base and analyze customer behavior</p>
       </div>
 
       {/* Enhanced Stats */}
@@ -148,7 +148,7 @@ const CustomersPage = () => {
       {/* Customer Acquisition Trends */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Customer Acquisition Trends</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Customer Acquisition Trends</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveSegment('all')}
@@ -192,7 +192,7 @@ const CustomersPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Customer Segments */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Segments</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Segments</h3>
           
           <div className="space-y-4">
             {customerSegmentsData.map((segment, index) => {
@@ -236,7 +236,7 @@ const CustomersPage = () => {
 
         {/* Customer Lifetime Value Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Lifetime Value</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Lifetime Value</h3>
           <div className="h-[280px] sm:h-[350px] flex items-center justify-center">
             <PieChart
               data={clvDistribution}
@@ -254,7 +254,7 @@ const CustomersPage = () => {
       {/* Customer Engagement Heatmap */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Engagement by Channel & Segment</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Engagement by Channel & Segment</h3>
           <div className="text-sm text-gray-600 dark:text-gray-400">Engagement Rate (%)</div>
         </div>
 
@@ -270,7 +270,7 @@ const CustomersPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Customer Retention Curve */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">12-Month Retention Curve</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">12-Month Retention Curve</h3>
           <div className="w-full h-[300px]">
             <LineChart
               data={retentionData}
@@ -295,7 +295,7 @@ const CustomersPage = () => {
 
         {/* Customer Insights & Actions */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Insights</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Insights</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">

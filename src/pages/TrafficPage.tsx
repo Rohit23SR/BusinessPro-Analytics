@@ -182,7 +182,7 @@ const TrafficPage = () => {
       {/* Device-Based Session Trends */}
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Device-Based Session Trends</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Device-Based Session Trends</h3>
         </div>
 
         <div ref={chartContainerRef} className="w-full bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
@@ -225,7 +225,7 @@ const TrafficPage = () => {
       {/* Traffic Over Time Chart */}
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Over Time</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Over Time</h3>
           <div className="flex space-x-2">
             {tabs.map((tab) => (
               <button
@@ -277,7 +277,7 @@ const TrafficPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Traffic Sources */}
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Traffic Sources</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Traffic Sources</h3>
 
           <div className="space-y-4">
             {[
@@ -305,7 +305,7 @@ const TrafficPage = () => {
 
         {/* Geographic Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Countries</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Countries</h3>
 
           <div className="space-y-4">
             {[
@@ -341,7 +341,7 @@ const TrafficPage = () => {
 
       {/* Detailed Traffic Table */}
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Traffic Details</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Traffic Details</h3>
 
         <div className="overflow-x-auto">
           <table className="w-full">
