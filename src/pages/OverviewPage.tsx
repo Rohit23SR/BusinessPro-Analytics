@@ -118,9 +118,20 @@ const OverviewPage = () => {
   
   // Get current heatmap data based on view
   const currentHeatmapData = heatmapView === 'hourly' ? heatmapData : dailyHeatmapData;
-  const currentHeatmapConfig = heatmapView === 'hourly' 
-    ? { title: 'Activity by Hour and Day', width: 800, height: 350 }
-    : { title: 'Activity by Day and Week', width: 600, height: 300 };
+
+  // Responsive heatmap config
+  const getHeatmapWidth = () => {
+    if (typeof window === 'undefined') return 800;
+    const width = window.innerWidth;
+    if (width < 640) return Math.min(width - 80, 400);
+    if (width < 768) return Math.min(width - 100, 550);
+    if (width < 1024) return 650;
+    return heatmapView === 'hourly' ? 800 : 600;
+  };
+
+  const currentHeatmapConfig = heatmapView === 'hourly'
+    ? { title: 'Activity by Hour and Day', width: getHeatmapWidth(), height: window.innerWidth < 640 ? 280 : 350 }
+    : { title: 'Activity by Day and Week', width: getHeatmapWidth(), height: window.innerWidth < 640 ? 240 : 300 };
   
   const {
     overview,
@@ -550,12 +561,17 @@ const OverviewPage = () => {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <HeatMap 
+            <HeatMap
               data={currentHeatmapData}
               width={currentHeatmapConfig.width}
               height={currentHeatmapConfig.height}
               title={currentHeatmapConfig.title}
-              margin={{ top: 50, right: 140, bottom: 80, left: 120 }}
+              margin={{
+                top: window.innerWidth < 640 ? 30 : 50,
+                right: window.innerWidth < 640 ? 40 : window.innerWidth < 768 ? 80 : 140,
+                bottom: window.innerWidth < 640 ? 50 : 80,
+                left: window.innerWidth < 640 ? 60 : window.innerWidth < 768 ? 80 : 120
+              }}
             />
           </div>
         )}
