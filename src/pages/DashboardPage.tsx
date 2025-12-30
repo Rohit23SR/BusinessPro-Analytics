@@ -162,8 +162,8 @@ const DashboardPage = () => {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
-          <p className="text-gray-600">Monitor your business performance and key metrics</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard Overview</h1>
+          <p className="text-gray-600 dark:text-gray-400">Monitor your business performance and key metrics</p>
         </div>
         
         <button
@@ -179,17 +179,17 @@ const DashboardPage = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpis.data?.map((kpi, index) => (
-          <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={index} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-sm font-medium text-gray-600">{kpi.title}</div>
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-400">{kpi.title}</div>
               {kpi.trend === 'up' ? (
                 <TrendingUp className="w-5 h-5 text-green-500" />
               ) : (
                 <TrendingDown className="w-5 h-5 text-red-500" />
               )}
             </div>
-            
-            <div className="text-2xl font-bold text-gray-900 mb-2">{kpi.value}</div>
+
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{kpi.value}</div>
             
             <div className={`text-sm font-medium ${
               kpi.trend === 'up' ? 'text-green-600' : 'text-red-600'
@@ -203,19 +203,19 @@ const DashboardPage = () => {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 overflow-hidden">
+        <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Revenue Trends</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
             <div className="hidden md:flex space-x-4">
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                 Actual
               </div>
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-indigo-500 rounded-full mr-2"></div>
                 Target
               </div>
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
                 Previous Year
               </div>
@@ -246,9 +246,9 @@ const DashboardPage = () => {
         </div>
 
         {/* Traffic Sources Chart */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Traffic Sources</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Sources</h3>
             <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
               View Details →
             </button>
@@ -280,18 +280,18 @@ const DashboardPage = () => {
       {/* Data Tables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Activity */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Recent Activity</h3>
           
           {activity.isLoading ? (
             <LoadingSpinner size="sm" text="Loading activity..." />
           ) : (
             <div className="space-y-4">
               {activity.data?.slice(0, 5).map((item, index) => (
-                <div key={item.id || index} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                <div key={item.id || index} className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">{item.activity}</div>
-                    <div className="text-xs text-gray-500">{item.user} • {item.time}</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{item.activity}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{item.user} • {item.time}</div>
                   </div>
                   <span className={`px-2 py-1 text-xs rounded-full font-medium ${
                     item.status === 'Completed' || item.status === 'Success' || item.status === 'Active'
@@ -309,9 +309,9 @@ const DashboardPage = () => {
         </div>
 
         {/* Top Products */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Top Products</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Top Products</h3>
             <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
               View All →
             </button>
@@ -322,13 +322,13 @@ const DashboardPage = () => {
           ) : (
             <div className="space-y-4">
               {products.data?.slice(0, 5).map((product, index) => (
-                <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                    <div className="text-xs text-gray-500">{product.sales.toLocaleString()} sales</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{product.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{product.sales.toLocaleString()} sales</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-medium text-gray-900">{product.revenue}</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{product.revenue}</div>
                     <div className={`text-xs font-medium ${
                       product.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'
                     }`}>

@@ -1,6 +1,7 @@
 // Reusable Area Chart component using D3.js
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 interface AreaChartData {
   x: string | number | Date;
@@ -47,9 +48,21 @@ const AreaChart = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [hoveredData, setHoveredData] = useState<AreaChartData | null>(null);
+  const [, setThemeUpdate] = useState(0);
+
+  // Watch for theme changes and trigger re-render
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
 
   useEffect(() => {
     if (!data || data.length === 0 || !svgRef.current) return;
+
+    // Get theme-aware colors
+    const colors = getChartColors();
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -101,7 +114,7 @@ const AreaChart = ({
         .attr("x2", innerWidth)
         .attr("y1", d => yScale(d))
         .attr("y2", d => yScale(d))
-        .attr("stroke", "#f0f0f0")
+        .attr("stroke", colors.grid)
         .attr("stroke-dasharray", "3,3");
 
       // Vertical grid lines
@@ -113,7 +126,7 @@ const AreaChart = ({
         .attr("x2", d => xScale(String(d[xKey])) || 0)
         .attr("y1", 0)
         .attr("y2", innerHeight)
-        .attr("stroke", "#f9f9f9")
+        .attr("stroke", colors.grid)
         .attr("stroke-dasharray", "2,2");
     }
 
@@ -124,7 +137,7 @@ const AreaChart = ({
         .attr("x2", innerWidth)
         .attr("y1", yScale(0))
         .attr("y2", yScale(0))
-        .attr("stroke", "#6b7280")
+        .attr("stroke", colors.axis)
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "5,5");
     }

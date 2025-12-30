@@ -23,9 +23,9 @@ const revenueChartData = [
 ];
 
 const revenueSeries = [
-    { key: 'revenue', name: 'Revenue', color: '#3b82f6', strokeWidth: 3 },
-    { key: 'target', name: 'Target', color: '#10b981', strokeWidth: 2, strokeDasharray: '5,5' },
-    { key: 'orders', name: 'Orders (scaled)', color: '#f59e0b', strokeWidth: 2 },
+    { key: 'revenue', name: 'Revenue', color: '#60a5fa', strokeWidth: 3 },
+    { key: 'target', name: 'Target', color: '#22c55e', strokeWidth: 2, strokeDasharray: '5,5' },
+    { key: 'orders', name: 'Orders (scaled)', color: '#fbbf24', strokeWidth: 2 },
 ];
 
 const RevenuePage = () => {
@@ -91,21 +91,21 @@ const RevenuePage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Revenue Analytics</h1>
-        <p className="text-gray-600">Track revenue performance, trends, and growth metrics</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Revenue Analytics</h1>
+        <p className="text-gray-600 dark:text-gray-400">Track revenue performance, trends, and growth metrics</p>
       </div>
 
       {/* Revenue Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <DollarSign className="w-6 h-6 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Total Revenue</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Revenue</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             ${totalRevenue.toLocaleString()}
           </div>
           <div className="text-sm font-medium text-green-600">
@@ -113,15 +113,15 @@ const RevenuePage = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Target className="w-6 h-6 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Average Order Value</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Average Order Value</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             ${avgOrderValue.toFixed(2)}
           </div>
           <div className="text-sm font-medium text-green-600">
@@ -129,15 +129,15 @@ const RevenuePage = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Calendar className="w-6 h-6 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Total Orders</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Orders</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {totalOrders.toLocaleString()}
           </div>
           <div className="text-sm font-medium text-green-600">
@@ -145,15 +145,15 @@ const RevenuePage = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-yellow-600" />
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+              <TrendingUp className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
             </div>
             <TrendingDown className="w-5 h-5 text-red-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Conversion Rate</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">3.24%</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Conversion Rate</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">3.24%</div>
           <div className="text-sm font-medium text-red-600">
             -2.1% vs last period
           </div>
@@ -161,19 +161,19 @@ const RevenuePage = () => {
       </div>
 
       {/* Revenue Chart - FIXED */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Revenue Trends</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
           <div className="flex space-x-4">
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
               Revenue
             </div>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
               Target
             </div>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
               Orders (×100)
             </div>
@@ -200,18 +200,18 @@ const RevenuePage = () => {
       {/* Revenue Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Monthly Breakdown */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Monthly Performance</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Monthly Performance</h3>
           
           <div className="space-y-4">
             {revenueData.slice(-6).map((month, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <div className="font-medium text-gray-900">{month.month}</div>
-                  <div className="text-sm text-gray-500">{month.orders.toLocaleString()} orders</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{month.month}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{month.orders.toLocaleString()} orders</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-gray-900">${month.revenue.toLocaleString()}</div>
+                  <div className="font-bold text-gray-900 dark:text-gray-100">${month.revenue.toLocaleString()}</div>
                   <div className={`text-sm ${
                     month.target && month.revenue >= month.target ? 'text-green-600' : 'text-red-600'
                   }`}>
@@ -224,9 +224,9 @@ const RevenuePage = () => {
         </div>
 
         {/* Top Revenue Products */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Top Revenue Products</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Top Revenue Products</h3>
             <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
               View All →
             </button>
@@ -244,7 +244,7 @@ const RevenuePage = () => {
                 { name: 'Pro Features', sales: 980, revenue: '$24,500', growth: '+9.1%' },
                 { name: 'Add-on Services', sales: 650, revenue: '$18,200', growth: '+6.8%' }
               ]).slice(0, 6).map((product, index) => (
-                <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+                <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
                   <div className="flex items-center">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium mr-3 ${
                       index === 0 ? 'bg-yellow-500' :
@@ -254,12 +254,12 @@ const RevenuePage = () => {
                       {index + 1}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{product.name}</div>
-                      <div className="text-sm text-gray-500">{product.sales.toLocaleString()} sales</div>
+                      <div className="font-medium text-gray-900 dark:text-gray-100">{product.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{product.sales.toLocaleString()} sales</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold text-gray-900">{product.revenue}</div>
+                    <div className="font-bold text-gray-900 dark:text-gray-100">{product.revenue}</div>
                     <div className={`text-sm font-medium ${
                       product.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'
                     }`}>
@@ -328,13 +328,13 @@ const RevenuePage = () => {
             className="absolute inset-0 bg-black bg-opacity-50"
             onClick={() => setShowGoalModal(false)}
           />
-          <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
+          <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <Target className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                  <Target className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Set Revenue Goal</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Set Revenue Goal</h3>
               </div>
               <button
                 onClick={() => setShowGoalModal(false)}
@@ -346,11 +346,11 @@ const RevenuePage = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Monthly Revenue Target
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
                     $
                   </span>
                   <input
@@ -358,16 +358,16 @@ const RevenuePage = () => {
                     value={newGoalAmount}
                     onChange={(e) => setNewGoalAmount(formatCurrency(e.target.value))}
                     placeholder="250,000"
-                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg"
+                    className="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                   Current month revenue: ${lastMonth?.revenue?.toLocaleString()}
                 </p>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-600">
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Setting a clear revenue goal helps track your business performance and identify areas for improvement.
                 </p>
               </div>
@@ -375,7 +375,7 @@ const RevenuePage = () => {
               <div className="flex space-x-3">
                 <button
                   onClick={() => setShowGoalModal(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>

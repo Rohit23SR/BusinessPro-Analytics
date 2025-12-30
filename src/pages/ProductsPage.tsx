@@ -91,72 +91,72 @@ const ProductsPage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Product Analytics</h1>
-        <p className="text-gray-600">Track product performance, inventory, and customer preferences</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Product Analytics</h1>
+        <p className="text-gray-600 dark:text-gray-400">Track product performance, inventory, and customer preferences</p>
       </div>
 
       {/* Product Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Package className="w-6 h-6 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Total Products</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">1,247</div>
-          <div className="text-sm font-medium text-green-600">+12 new this month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Products</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">1,247</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+12 new this month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <DollarSign className="w-6 h-6 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Avg Order Value</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">$89.32</div>
-          <div className="text-sm font-medium text-green-600">+5.7% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Order Value</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">$89.32</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+5.7% vs last month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <Star className="w-6 h-6 text-yellow-600" />
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+              <Star className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Avg Rating</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">4.6</div>
-          <div className="text-sm font-medium text-green-600">+0.2 vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Rating</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">4.6</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+0.2 vs last month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <ShoppingCart className="w-6 h-6 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <ShoppingCart className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-red-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Cart Conversion</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">23.4%</div>
-          <div className="text-sm font-medium text-red-600">-1.2% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Cart Conversion</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">23.4%</div>
+          <div className="text-sm font-medium text-red-600 dark:text-red-400">-1.2% vs last month</div>
         </div>
       </div>
 
       {/* Product Sales Trends */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Product Sales Trends</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Product Sales Trends</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveMetric('sales')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeMetric === 'sales' 
                   ? 'bg-blue-100 text-blue-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Sales
@@ -166,7 +166,7 @@ const ProductsPage = () => {
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeMetric === 'revenue' 
                   ? 'bg-blue-100 text-blue-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Revenue
@@ -194,8 +194,8 @@ const ProductsPage = () => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Products */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Top Performing Products</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Performing Products</h3>
           
           {/* Custom Product List Instead of Chart */}
           <div className="space-y-4">
@@ -204,26 +204,26 @@ const ProductsPage = () => {
               const isAboveTarget = product.current >= product.target;
               
               return (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3 ${
                         index === 0 ? 'bg-blue-500' :
                         index === 1 ? 'bg-indigo-500' :
-                        index === 2 ? 'bg-purple-500' : 'bg-gray-500'
+                        index === 2 ? 'bg-purple-500' : 'bg-gray-50 dark:bg-gray-7000'
                       }`}>
                         {index + 1}
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">{product.category}</div>
-                        <div className="text-sm text-gray-500">Current: {product.current.toLocaleString()}</div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{product.category}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Current: {product.current.toLocaleString()}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`font-bold ${isAboveTarget ? 'text-green-600' : 'text-yellow-600'}`}>
+                      <div className={`font-bold ${isAboveTarget ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'}`}>
                         {percentage.toFixed(1)}%
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
                         Target: {product.target.toLocaleString()}
                       </div>
                     </div>
@@ -241,11 +241,11 @@ const ProductsPage = () => {
                   
                   {/* Performance vs Previous */}
                   <div className="mt-2 flex items-center justify-between text-xs">
-                    <span className="text-gray-500">
+                    <span className="text-gray-500 dark:text-gray-400">
                       Previous: {product.previous.toLocaleString()}
                     </span>
                     <span className={`font-medium ${
-                      product.current > product.previous ? 'text-green-600' : 'text-red-600'
+                      product.current > product.previous ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}>
                       {product.current > product.previous ? '+' : ''}
                       {((product.current - product.previous) / product.previous * 100).toFixed(1)}%
@@ -258,8 +258,8 @@ const ProductsPage = () => {
         </div>
 
         {/* Category Distribution */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Sales by Category</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Sales by Category</h3>
           <div style={{ height: '350px' }} className="flex items-center justify-center">
             <PieChart 
               data={categoryDistribution}
@@ -275,10 +275,10 @@ const ProductsPage = () => {
       </div>
 
       {/* Product Performance Heatmap */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Quarterly Performance by Category</h3>
-          <div className="text-sm text-gray-600">Performance Score (%)</div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quarterly Performance by Category</h3>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Performance Score (%)</div>
         </div>
         
         <HeatMap 
@@ -292,8 +292,8 @@ const ProductsPage = () => {
       {/* Bottom Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Inventory Levels */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Inventory Levels Trend</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Inventory Levels Trend</h3>
           <div style={{ width: '100%', height: '300px' }}>
             <LineChart 
               data={inventoryData}
@@ -311,7 +311,7 @@ const ProductsPage = () => {
           </div>
           <div className="mt-4 p-3 bg-red-50 border-l-4 border-red-500 rounded-lg">
             <div className="flex items-center">
-              <AlertTriangle className="w-4 h-4 text-red-600 mr-2" />
+              <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400 mr-2" />
               <span className="text-sm font-medium text-red-800">Low Stock Alert</span>
             </div>
             <p className="text-sm text-red-700 mt-1">23 products are running low on inventory</p>
@@ -319,13 +319,13 @@ const ProductsPage = () => {
         </div>
 
         {/* Product Insights */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Product Insights</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Product Insights</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
               <div className="flex items-center">
-                <TrendingUp className="w-4 h-4 text-green-600 mr-2" />
+                <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400 mr-2" />
                 <span className="text-sm font-medium text-green-800">Best Performer</span>
               </div>
               <p className="text-sm text-green-700 mt-1">Electronics category up 35% this quarter</p>
@@ -333,7 +333,7 @@ const ProductsPage = () => {
 
             <div className="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg">
               <div className="flex items-center">
-                <Eye className="w-4 h-4 text-yellow-600 mr-2" />
+                <Eye className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mr-2" />
                 <span className="text-sm font-medium text-yellow-800">High Views, Low Conversion</span>
               </div>
               <p className="text-sm text-yellow-700 mt-1">Home & Garden products need optimization</p>
@@ -341,7 +341,7 @@ const ProductsPage = () => {
 
             <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
               <div className="flex items-center">
-                <Star className="w-4 h-4 text-blue-600 mr-2" />
+                <Star className="w-4 h-4 text-blue-600 dark:text-blue-400 mr-2" />
                 <span className="text-sm font-medium text-blue-800">Customer Favorite</span>
               </div>
               <p className="text-sm text-blue-700 mt-1">iPhone 15 Pro maintains 4.8★ rating</p>
@@ -349,7 +349,7 @@ const ProductsPage = () => {
 
             <div className="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-lg">
               <div className="flex items-center">
-                <Users className="w-4 h-4 text-purple-600 mr-2" />
+                <Users className="w-4 h-4 text-purple-600 dark:text-purple-400 mr-2" />
                 <span className="text-sm font-medium text-purple-800">Trending</span>
               </div>
               <p className="text-sm text-purple-700 mt-1">Winter clothing seeing early demand spike</p>
@@ -357,8 +357,8 @@ const ProductsPage = () => {
           </div>
 
           {/* Quick Actions */}
-          <div className="mt-6 pt-4 border-t border-gray-200">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">Quick Actions</h4>
+          <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Quick Actions</h4>
             <div className="flex flex-wrap gap-2">
               <button className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200">
                 Restock Alerts

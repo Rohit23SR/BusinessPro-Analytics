@@ -9,7 +9,7 @@ interface SettingsSidebarProps {
 
 export default function SettingsSidebar({ tabs, activeTab, onTabChange }: SettingsSidebarProps) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
       <nav className="space-y-2">
         {tabs.map((tab) => (
           <button
@@ -17,8 +17,8 @@ export default function SettingsSidebar({ tabs, activeTab, onTabChange }: Settin
             onClick={() => onTabChange(tab.id)}
             className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
               activeTab === tab.id
-                ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                : 'text-gray-600 hover:bg-gray-50'
+                ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700'
+                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
             <span className="mr-3 text-base">{tab.icon}</span>

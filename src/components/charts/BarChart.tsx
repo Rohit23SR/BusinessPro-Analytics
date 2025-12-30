@@ -1,6 +1,7 @@
 // Reusable Bar Chart component using D3.js
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 interface BarChartData {
   category: string;
@@ -45,9 +46,21 @@ const BarChart = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [hoveredData, setHoveredData] = useState<BarChartData | null>(null);
+  const [, setThemeUpdate] = useState(0);
+
+  // Watch for theme changes and trigger re-render
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
 
   useEffect(() => {
     if (!data || data.length === 0 || !svgRef.current) return;
+
+    // Get theme-aware colors
+    const themeColors = getChartColors();
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -265,7 +278,7 @@ const BarChart = ({
           .attr("x2", innerWidth)
           .attr("y1", d => yScale(d))
           .attr("y2", d => yScale(d))
-          .attr("stroke", "#f0f0f0")
+          .attr("stroke", themeColors.grid)
           .attr("stroke-dasharray", "3,3");
       } else {
         g.selectAll(".grid-line")
@@ -276,7 +289,7 @@ const BarChart = ({
           .attr("x2", d => xScale(d))
           .attr("y1", 0)
           .attr("y2", innerHeight)
-          .attr("stroke", "#f0f0f0")
+          .attr("stroke", themeColors.grid)
           .attr("stroke-dasharray", "3,3");
       }
     }

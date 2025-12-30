@@ -8,7 +8,14 @@ import { queryClient } from './utils/queryClient';
 import { AuthProvider } from './hooks/useAuth';
 import { configureAmplify } from './utils/amplifyConfig';
 import LoadingSpinner from './components/ui/LoadingSpinner';
+import { useTheme } from './hooks/useTheme';
 import './index.css';
+
+// Component that uses theme hook (must be inside QueryClientProvider)
+function ThemedApp() {
+  useTheme(); // Apply theme - now inside QueryClientProvider
+  return <RouterProvider router={router} />;
+}
 
 function App() {
   const [isConfigured, setIsConfigured] = useState(false);
@@ -32,7 +39,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <ThemedApp />
       </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

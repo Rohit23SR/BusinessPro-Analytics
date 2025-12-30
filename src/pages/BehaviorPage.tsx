@@ -38,7 +38,7 @@ const BehaviorPage = () => {
   if (isError) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-600">Failed to load user behavior data</p>
+        <p className="text-red-600 dark:text-red-400">Failed to load user behavior data</p>
       </div>
     );
   }
@@ -46,12 +46,12 @@ const BehaviorPage = () => {
   return (
     <div className="space-y-8">
       {/* Device Breakdown */}
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Device Usage</h3>
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Device Usage</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {data?.deviceBreakdown.map((device, index) => (
-            <div key={index} className="bg-white rounded-lg p-6 text-center">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
               <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
                 device.device === 'Desktop' ? 'bg-blue-100' :
                 device.device === 'Mobile' ? 'bg-green-100' : 'bg-purple-100'
@@ -59,15 +59,15 @@ const BehaviorPage = () => {
                 {device.device === 'Desktop' ? 
                   <div className="text-3xl">🖥️</div> : 
                   device.device === 'Mobile' ? 
-                  <Smartphone className="w-8 h-8 text-green-600" /> :
+                  <Smartphone className="w-8 h-8 text-green-600 dark:text-green-400" /> :
                   <div className="text-3xl">📱</div>
                 }
               </div>
-              <div className="text-2xl font-bold text-gray-900 mb-1">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
                 {device.percentage}%
               </div>
-              <div className="text-lg font-medium text-gray-700 mb-2">{device.device}</div>
-              <div className="text-sm text-gray-500">
+              <div className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">{device.device}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
                 {device.sessions.toLocaleString()} sessions
               </div>
             </div>
@@ -76,16 +76,16 @@ const BehaviorPage = () => {
       </div>
 
       {/* User Activity Heatmap */}
-      <div className="bg-gray-50 rounded-lg p-6">
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Feature Usage Heatmap</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Feature Usage Heatmap</h3>
           <div className="flex space-x-2">
             <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-lg">By User Type</button>
-            <button className="px-3 py-1 text-xs border border-gray-200 text-gray-600 rounded-lg">By Time</button>
+            <button className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 rounded-lg">By Time</button>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4">
           <Heatmap
             data={featureUsageData}
             title="Feature Usage by User Segment"
@@ -95,54 +95,54 @@ const BehaviorPage = () => {
 
       {/* Behavior Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Eye className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Eye className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">2.4</div>
-          <div className="text-sm text-gray-600">Pages per Session</div>
-          <div className="text-xs text-green-600 mt-1">+8.3% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">2.4</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Pages per Session</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+8.3% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <Clock className="w-5 h-5 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <Clock className="w-5 h-5 text-green-600 dark:text-green-400" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">3m 42s</div>
-          <div className="text-sm text-gray-600">Avg Session Duration</div>
-          <div className="text-xs text-green-600 mt-1">+12.1% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">3m 42s</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Avg Session Duration</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+12.1% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <MousePointer className="w-5 h-5 text-yellow-600" />
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+              <MousePointer className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">24.7%</div>
-          <div className="text-sm text-gray-600">Bounce Rate</div>
-          <div className="text-xs text-green-600 mt-1">-3.2% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">24.7%</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Bounce Rate</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">-3.2% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Eye className="w-5 h-5 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <Eye className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">67.3%</div>
-          <div className="text-sm text-gray-600">Return Visitors</div>
-          <div className="text-xs text-green-600 mt-1">+5.7% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">67.3%</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Return Visitors</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+5.7% vs last period</div>
         </div>
       </div>
 
       {/* User Journey Flow - Now with Sankey Component */}
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">User Journey Flow</h3>
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">User Journey Flow</h3>
         
         {/* Use the UserJourneySankey component */}
         <UserJourneySankey 
@@ -153,8 +153,8 @@ const BehaviorPage = () => {
 
       {/* Engagement Patterns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Engagement Patterns</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Engagement Patterns</h3>
           
           <div className="space-y-4">
             {[
@@ -163,22 +163,22 @@ const BehaviorPage = () => {
               { pattern: 'Deep Explorers', percentage: 18, description: 'Long sessions, high interaction', color: 'bg-green-500' },
               { pattern: 'Return Customers', percentage: 6, description: 'Frequent visits, high value', color: 'bg-purple-500' }
             ].map((pattern, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div className="flex items-center">
                   <div className={`w-4 h-4 ${pattern.color} rounded-full mr-3`}></div>
                   <div>
-                    <div className="font-medium text-gray-900">{pattern.pattern}</div>
-                    <div className="text-xs text-gray-500">{pattern.description}</div>
+                    <div className="font-medium text-gray-900 dark:text-gray-100">{pattern.pattern}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{pattern.description}</div>
                   </div>
                 </div>
-                <div className="text-lg font-bold text-gray-900">{pattern.percentage}%</div>
+                <div className="text-lg font-bold text-gray-900 dark:text-gray-100">{pattern.percentage}%</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Popular Content</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Popular Content</h3>
           
           <div className="space-y-4">
             {[
@@ -188,15 +188,15 @@ const BehaviorPage = () => {
               { title: 'Feature Overview', views: 6543, engagement: 71 },
               { title: 'Customer Stories', views: 5432, engagement: 89 }
             ].map((content, index) => (
-              <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+              <div key={index} className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
                 <div>
-                  <div className="font-medium text-gray-900">{content.title}</div>
-                  <div className="text-sm text-gray-500">{content.views.toLocaleString()} views</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{content.title}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{content.views.toLocaleString()} views</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-sm font-medium ${
-                    content.engagement >= 80 ? 'text-green-600' :
-                    content.engagement >= 70 ? 'text-yellow-600' : 'text-red-600'
+                    content.engagement >= 80 ? 'text-green-600 dark:text-green-400' :
+                    content.engagement >= 70 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-600 dark:text-red-400'
                   }`}>
                     {content.engagement}% engagement
                   </div>

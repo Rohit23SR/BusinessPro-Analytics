@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TrendingUp, TrendingDown, Users, Eye, MousePointer, Clock } from 'lucide-react';
 import { useAnalyticsDashboard, useAnalyticsInsights } from '../hooks/useAnalytics';
 import { useUrlFilters } from '../hooks/useNavigation';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { LineChart, AreaChart } from '../components/charts';
 import HeatMap from '../components/charts/Heatmap';
@@ -21,13 +22,13 @@ const deviceTrafficData = [
 
 // Series configurations for different chart types
 const sessionsDeviceSeries = [
-  { key: 'mobile', name: 'Mobile Sessions', color: '#10b981', strokeWidth: 3 },
-  { key: 'desktop', name: 'Desktop Sessions', color: '#3b82f6', strokeWidth: 3 },
-  { key: 'tablet', name: 'Tablet Sessions', color: '#f59e0b', strokeWidth: 2 },
+  { key: 'mobile', name: 'Mobile Sessions', color: '#22c55e', strokeWidth: 3 },
+  { key: 'desktop', name: 'Desktop Sessions', color: '#60a5fa', strokeWidth: 3 },
+  { key: 'tablet', name: 'Tablet Sessions', color: '#fbbf24', strokeWidth: 2 },
 ];
 
 const usersDeviceSeries = [
-  { key: 'users', name: 'Total Users', color: '#8b5cf6', strokeWidth: 3 },
+  { key: 'users', name: 'Total Users', color: '#a78bfa', strokeWidth: 3 },
 ];
 
 // Static heatmap data for user activity (Hour vs Day of Week)
@@ -110,8 +111,10 @@ const dailyHeatmapData = [
 
 const OverviewPage = () => {
   const { filters } = useUrlFilters();
+  const navigate = useNavigate();
   const [activeChart, setActiveChart] = useState('sessions'); // State for chart toggle
   const [heatmapView, setHeatmapView] = useState('hourly'); // State for heatmap view
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   
   // Get current heatmap data based on view
   const currentHeatmapData = heatmapView === 'hourly' ? heatmapData : dailyHeatmapData;
@@ -131,6 +134,148 @@ const OverviewPage = () => {
 
   const insights = useAnalyticsInsights(filters.timeframe);
 
+  const handleGenerateReport = async () => {
+    setIsGeneratingReport(true);
+
+    try {
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `analytics-summary-report-${timestamp}.csv`;
+
+      const csvRows: string[][] = [];
+
+      // Report Header
+      csvRows.push(['ANALYTICS SUMMARY REPORT']);
+      csvRows.push(['Generated on', new Date().toLocaleString()]);
+      csvRows.push(['Time Period', filters.timeframe || '30d']);
+      csvRows.push(['Filters Applied', `Traffic: ${filters.trafficSource || 'All'}, Device: ${filters.deviceType || 'All'}, Location: ${filters.geography || 'All'}`]);
+      csvRows.push([]);
+
+      // Key Metrics Summary
+      csvRows.push(['KEY PERFORMANCE METRICS']);
+      csvRows.push(['Metric', 'Value', 'Change vs Previous Period', 'Status']);
+      csvRows.push(['Total Sessions', overview.data?.totalSessions.toLocaleString() || '0', '+18.2%', 'Positive']);
+      csvRows.push(['Page Views', overview.data?.pageViews.toLocaleString() || '0', '+12.8%', 'Positive']);
+      csvRows.push(['Bounce Rate', `${overview.data?.bounceRate || 0}%`, '-3.2%', 'Positive']);
+      csvRows.push(['Avg Session Duration', overview.data?.avgSessionDuration || '0m 0s', '+8.5%', 'Positive']);
+      csvRows.push([]);
+
+      // Traffic Sources
+      if (traffic.data?.sources) {
+        csvRows.push(['TRAFFIC SOURCES']);
+        csvRows.push(['Source', 'Sessions', 'Percentage', 'Avg Duration', 'Bounce Rate']);
+        traffic.data.sources.forEach((source: any) => {
+          csvRows.push([
+            source.name || '',
+            source.sessions?.toLocaleString() || '0',
+            `${source.percentage || 0}%`,
+            source.avgDuration || 'N/A',
+            `${source.bounceRate || 0}%`
+          ]);
+        });
+        csvRows.push([]);
+      }
+
+      // Conversion Funnel
+      if (funnel.data?.funnel) {
+        csvRows.push(['CONVERSION FUNNEL']);
+        csvRows.push(['Step', 'Visitors', 'Percentage', 'Drop-off Rate']);
+        funnel.data.funnel.forEach((step: any) => {
+          csvRows.push([
+            step.step || '',
+            step.visitors?.toLocaleString() || '0',
+            `${step.percentage?.toFixed(1) || 0}%`,
+            step.dropOff ? `${step.dropOff}%` : 'N/A'
+          ]);
+        });
+        csvRows.push([]);
+      }
+
+      // Device Breakdown
+      if (behavior.data?.deviceBreakdown) {
+        csvRows.push(['DEVICE BREAKDOWN']);
+        csvRows.push(['Device Type', 'Sessions', 'Percentage', 'Avg Session Duration']);
+        behavior.data.deviceBreakdown.forEach((device: any) => {
+          csvRows.push([
+            device.device || '',
+            device.sessions?.toLocaleString() || '0',
+            `${device.percentage || 0}%`,
+            device.avgDuration || 'N/A'
+          ]);
+        });
+        csvRows.push([]);
+      }
+
+      // Top Landing Pages
+      if (pages.data) {
+        csvRows.push(['TOP LANDING PAGES']);
+        csvRows.push(['Page Title', 'Sessions', 'Bounce Rate', 'Conversions', 'Revenue']);
+        pages.data.slice(0, 10).forEach((page: any) => {
+          csvRows.push([
+            page.title || '',
+            page.sessions?.toLocaleString() || '0',
+            `${page.bounceRate || 0}%`,
+            page.conversions?.toString() || '0',
+            page.revenue ? `$${page.revenue.toLocaleString()}` : 'N/A'
+          ]);
+        });
+        csvRows.push([]);
+      }
+
+      // AI Insights
+      if (insights.data) {
+        csvRows.push(['AI-POWERED INSIGHTS']);
+        csvRows.push(['Type', 'Title', 'Description', 'Impact Level', 'Confidence']);
+        insights.data.forEach((insight: any) => {
+          csvRows.push([
+            insight.type || '',
+            insight.title || '',
+            insight.description || '',
+            insight.impact || '',
+            `${(insight.confidence * 100).toFixed(0)}%`
+          ]);
+        });
+        csvRows.push([]);
+      }
+
+      // Summary Statistics
+      csvRows.push(['SUMMARY STATISTICS']);
+      csvRows.push(['Total Sessions', overview.data?.totalSessions.toLocaleString() || '0']);
+      csvRows.push(['Total Page Views', overview.data?.pageViews.toLocaleString() || '0']);
+      csvRows.push(['Overall Bounce Rate', `${overview.data?.bounceRate || 0}%`]);
+      csvRows.push(['Avg Session Duration', overview.data?.avgSessionDuration || '0m 0s']);
+      csvRows.push(['Top Traffic Source', traffic.data?.sources?.[0]?.name || 'N/A']);
+      csvRows.push(['Top Device Type', behavior.data?.deviceBreakdown?.[0]?.device || 'N/A']);
+
+      // Convert to CSV
+      const csvContent = csvRows.map(row =>
+        row.map(cell => {
+          const cellStr = cell.toString();
+          if (cellStr.includes(',') || cellStr.includes('"') || cellStr.includes('\n')) {
+            return `"${cellStr.replace(/"/g, '""')}"`;
+          }
+          return cellStr;
+        }).join(',')
+      ).join('\n');
+
+      // Download file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error('Failed to generate report:', error);
+      alert('Failed to generate report. Please try again.');
+    } finally {
+      setIsGeneratingReport(false);
+    }
+  };
+
   if (isLoading) {
     return <LoadingSpinner text="Loading analytics overview..." />;
   }
@@ -138,7 +283,7 @@ const OverviewPage = () => {
   if (isError) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-600">Failed to load analytics data</p>
+        <p className="text-red-600 dark:text-red-400">Failed to load analytics data</p>
       </div>
     );
   }
@@ -185,10 +330,10 @@ const OverviewPage = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => (
-          <div key={index} className="bg-gray-50 rounded-lg p-6">
+          <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-2 bg-white rounded-lg">
-                <metric.icon className="w-5 h-5 text-indigo-600" />
+              <div className="p-2 bg-white dark:bg-gray-800 rounded-lg">
+                <metric.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               </div>
               {metric.trend === 'up' ? (
                 <TrendingUp className="w-5 h-5 text-green-500" />
@@ -197,12 +342,12 @@ const OverviewPage = () => {
               )}
             </div>
             
-            <div className="text-sm text-gray-600 mb-1">{metric.title}</div>
-            <div className="text-2xl font-bold text-gray-900 mb-2">{metric.value}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">{metric.title}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{metric.value}</div>
             
             <div className={`text-sm font-medium ${
-              metric.trend === 'up' ? 'text-green-600' : 
-              metric.title === 'Bounce Rate' ? 'text-green-600' : 'text-red-600'
+              metric.trend === 'up' ? 'text-green-600 dark:text-green-400' : 
+              metric.title === 'Bounce Rate' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
             }`}>
               {metric.change} vs previous period
             </div>
@@ -213,16 +358,16 @@ const OverviewPage = () => {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Traffic Trends with Toggle */}
-        <div className="bg-gray-50 rounded-lg p-6">
+        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Traffic Trends</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Trends</h3>
             <div className="flex space-x-2">
               <button 
                 onClick={() => setActiveChart('sessions')}
                 className={`px-3 py-1 text-xs rounded-lg font-medium transition-colors ${
                   activeChart === 'sessions' 
                     ? 'bg-indigo-100 text-indigo-700' 
-                    : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
                 }`}
               >
                 Sessions
@@ -232,7 +377,7 @@ const OverviewPage = () => {
                 className={`px-3 py-1 text-xs rounded-lg font-medium transition-colors ${
                   activeChart === 'users' 
                     ? 'bg-indigo-100 text-indigo-700' 
-                    : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
                 }`}
               >
                 Users
@@ -245,30 +390,37 @@ const OverviewPage = () => {
               <LoadingSpinner size="sm" />
             </div>
           ) : (
-            <div className="h-80">
-              <LineChart 
-                data={currentChartData}
-                series={currentSeries}
-                title={currentTitle}
-                xKey="x"
-                xAxisLabel="Quarter"
-                yAxisLabel={currentYAxisLabel}
-                width="100%"
-                height={320}
-                showGrid={true}
-                showLegend={true}
-                showDots={true}
-                responsive={true}
-              />
+            <div className="bg-white dark:bg-gray-900 rounded-lg p-4">
+              <div className="h-80">
+                <LineChart
+                  data={currentChartData}
+                  series={currentSeries}
+                  title={currentTitle}
+                  xKey="x"
+                  xAxisLabel="Quarter"
+                  yAxisLabel={currentYAxisLabel}
+                  width="100%"
+                  height={320}
+                  showGrid={true}
+                  showLegend={true}
+                  showDots={true}
+                  responsive={true}
+                />
+              </div>
             </div>
           )}
         </div>
 
         {/* Conversion Funnel */}
-        <div className="bg-gray-50 rounded-lg p-6">
+        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Conversion Funnel</h3>
-            <button className="text-sm text-indigo-600 hover:text-indigo-700">Optimize →</button>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
+            <button
+              onClick={() => navigate('/dashboard/conversions')}
+              className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors"
+            >
+              Optimize →
+            </button>
           </div>
           
           {funnel.isLoading ? (
@@ -278,7 +430,7 @@ const OverviewPage = () => {
           ) : (
             <div className="space-y-4">
               {funnel.data?.funnel?.slice(0, 4).map((step, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
+                <div key={index} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium mr-3 ${
                       index === 0 ? 'bg-green-500' :
@@ -287,13 +439,13 @@ const OverviewPage = () => {
                     }`}>
                       {index + 1}
                     </div>
-                    <span className="text-sm font-medium text-gray-900">{step.step}</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{step.step}</span>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {step.visitors.toLocaleString()}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       {step.percentage.toFixed(1)}%
                     </div>
                   </div>
@@ -307,14 +459,14 @@ const OverviewPage = () => {
       {/* Data Tables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Landing Pages */}
-        <div className="bg-gray-50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Top Landing Pages</h3>
+        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Landing Pages</h3>
           
           {pages.isLoading ? (
             <LoadingSpinner size="sm" />
           ) : (
             <div className="space-y-4">
-              <div className="grid grid-cols-4 gap-4 text-xs font-medium text-gray-500 pb-2 border-b border-gray-200">
+              <div className="grid grid-cols-4 gap-4 text-xs font-medium text-gray-500 dark:text-gray-400 pb-2 border-b border-gray-200 dark:border-gray-700">
                 <div>Page</div>
                 <div>Sessions</div>
                 <div>Bounce Rate</div>
@@ -323,10 +475,10 @@ const OverviewPage = () => {
               
               {pages.data?.slice(0, 5).map((page, index) => (
                 <div key={index} className="grid grid-cols-4 gap-4 py-3 text-sm">
-                  <div className="font-medium text-gray-900 truncate">{page.title}</div>
-                  <div className="text-gray-600">{page.sessions.toLocaleString()}</div>
-                  <div className="text-gray-600">{page.bounceRate}%</div>
-                  <div className="text-gray-900 font-medium">{page.conversions}</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100 truncate">{page.title}</div>
+                  <div className="text-gray-600 dark:text-gray-400">{page.sessions.toLocaleString()}</div>
+                  <div className="text-gray-600 dark:text-gray-400">{page.bounceRate}%</div>
+                  <div className="text-gray-900 dark:text-gray-100 font-medium">{page.conversions}</div>
                 </div>
               )) || []}
             </div>
@@ -334,17 +486,17 @@ const OverviewPage = () => {
         </div>
 
         {/* AI Insights */}
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">🧠 AI-Powered Insights</h3>
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-lg p-6 border border-indigo-100 dark:border-indigo-800">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">🧠 AI-Powered Insights</h3>
           
           {insights.isLoading ? (
             <LoadingSpinner size="sm" />
           ) : (
             <div className="space-y-4">
               {insights.data?.slice(0, 3).map((insight, index) => (
-                <div key={index} className="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
+                <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-indigo-500">
                   <div className="flex items-start justify-between mb-2">
-                    <h4 className="text-sm font-semibold text-gray-900">{insight.title}</h4>
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{insight.title}</h4>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       insight.impact === 'high' ? 'bg-red-100 text-red-800' :
                       insight.impact === 'medium' ? 'bg-yellow-100 text-yellow-800' :
@@ -353,8 +505,8 @@ const OverviewPage = () => {
                       {insight.impact} impact
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600">{insight.description}</p>
-                  <div className="mt-2 text-xs text-gray-500">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{insight.description}</p>
+                  <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     Confidence: {(insight.confidence * 100).toFixed(0)}%
                   </div>
                 </div>
@@ -365,16 +517,16 @@ const OverviewPage = () => {
       </div>
 
       {/* User Behavior Heatmap */}
-      <div className="bg-gray-50 rounded-lg p-6">
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">User Activity Heatmap</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">User Activity Heatmap</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setHeatmapView('hourly')}
               className={`px-3 py-1 text-xs rounded-lg font-medium transition-colors ${
                 heatmapView === 'hourly' 
                   ? 'bg-indigo-100 text-indigo-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Hourly
@@ -384,7 +536,7 @@ const OverviewPage = () => {
               className={`px-3 py-1 text-xs rounded-lg font-medium transition-colors ${
                 heatmapView === 'daily' 
                   ? 'bg-indigo-100 text-indigo-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Daily
@@ -410,8 +562,8 @@ const OverviewPage = () => {
       </div>
 
       {/* Device Breakdown */}
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Device Breakdown</h3>
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Device Breakdown</h3>
         
         {behavior.isLoading ? (
           <LoadingSpinner size="sm" />
@@ -420,20 +572,20 @@ const OverviewPage = () => {
             {behavior.data?.deviceBreakdown?.map((device, index) => (
               <div key={index} className="text-center">
                 <div className={`w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center ${
-                  device.device === 'Desktop' ? 'bg-blue-100 text-blue-600' :
-                  device.device === 'Mobile' ? 'bg-green-100 text-green-600' :
-                  'bg-purple-100 text-purple-600'
+                  device.device === 'Desktop' ? 'bg-blue-100 text-blue-600 dark:text-blue-400' :
+                  device.device === 'Mobile' ? 'bg-green-100 text-green-600 dark:text-green-400' :
+                  'bg-purple-100 text-purple-600 dark:text-purple-400'
                 }`}>
                   <div className="text-2xl">
                     {device.device === 'Desktop' ? '🖥️' : 
                      device.device === 'Mobile' ? '📱' : '📱'}
                   </div>
                 </div>
-                <div className="text-lg font-bold text-gray-900">
+                <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
                   {device.percentage}%
                 </div>
-                <div className="text-sm text-gray-600 mb-1">{device.device}</div>
-                <div className="text-xs text-gray-500">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">{device.device}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
                   {device.sessions.toLocaleString()} sessions
                 </div>
               </div>
@@ -478,8 +630,24 @@ const OverviewPage = () => {
             </div>
           </div>
           <div className="text-right">
-            <button className="px-6 py-3 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium">
-              View Full Report
+            <button
+              onClick={handleGenerateReport}
+              disabled={isGeneratingReport}
+              className="px-6 py-3 bg-white dark:bg-gray-800 bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {isGeneratingReport ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Generating...
+                </>
+              ) : (
+                <>
+                  📄 View Full Report
+                </>
+              )}
             </button>
           </div>
         </div>

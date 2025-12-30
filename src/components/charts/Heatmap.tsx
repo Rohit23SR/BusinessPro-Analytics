@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 interface HeatMapData {
   x: string | number;
@@ -25,12 +26,24 @@ const HeatMap: React.FC<HeatMapProps> = ({
   colorScheme = ['#f7fbff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#08519c', '#08306b']
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const [, setThemeUpdate] = useState(0);
+
+  // Watch for theme changes and trigger re-render
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
 
   useEffect(() => {
     if (!data || data.length === 0) {
       console.log('HeatMap: No data provided');
       return;
     }
+
+    // Get theme-aware colors
+    const colors = getChartColors();
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -146,8 +159,8 @@ const HeatMap: React.FC<HeatMapProps> = ({
           .append('div')
           .attr('class', 'heatmap-tooltip')
           .style('position', 'absolute')
-          .style('background', 'rgba(0,0,0,0.9)')
-          .style('color', 'white')
+          .style('background', colors.tooltipBg)
+          .style('color', colors.tooltipText)
           .style('padding', '10px')
           .style('border-radius', '6px')
           .style('font-size', '12px')
@@ -183,7 +196,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
         d3.select(this)
           .style('opacity', 0.8)
           .style('stroke-width', '2px')
-          .style('stroke', '#333');
+          .style('stroke', colors.text);
       })
       .on('mouseout', function() {
         d3.selectAll('.heatmap-tooltip').remove();
@@ -235,7 +248,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .call(xAxis)
       .selectAll('text')
       .style('font-size', '11px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .attr('transform', 'rotate(-45)')
       .style('text-anchor', 'end');
 
@@ -244,7 +257,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .call(d3.axisLeft(yScale))
       .selectAll('text')
       .style('font-size', '12px')
-      .style('fill', '#666');
+      .style('fill', colors.axis);
 
     // Add axis labels (dynamic based on data type)
     const xAxisLabel = typeof xValues[0] === 'number' ? 'Hour of Day' : 'Day of Week';
@@ -256,7 +269,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .attr('y', height - 20)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .style('font-weight', '500')
       .text(xAxisLabel);
 
@@ -267,7 +280,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .style('font-weight', '500')
       .text(yAxisLabel);
 
@@ -322,7 +335,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .call(legendAxis)
       .selectAll('text')
       .style('font-size', '10px')
-      .style('fill', '#666');
+      .style('fill', colors.axis);
 
     // Legend title with proper positioning relative to heatmap
     legend
@@ -331,7 +344,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .attr('y', -10)
       .attr('text-anchor', 'middle')
       .style('font-size', '11px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .style('font-weight', '500')
       .text('Activity %');
 

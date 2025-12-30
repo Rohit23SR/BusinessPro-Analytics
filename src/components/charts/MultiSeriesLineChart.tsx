@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 // More flexible data point interface
 type DataPoint = Record<string, string | number | Date>;
@@ -47,9 +48,21 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
   referenceLines = []
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const [, setThemeUpdate] = useState(0);
+
+  // Watch for theme changes and trigger re-render
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
 
   useEffect(() => {
     if (!data || data.length === 0 || !series || series.length === 0) return;
+
+    // Get theme-aware colors
+    const colors = getChartColors();
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -110,7 +123,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
       .attr('text-anchor', 'middle')
       .style('font-size', '18px')
       .style('font-weight', 'bold')
-      .style('fill', '#333')
+      .style('fill', colors.text)
       .text(title);
 
     // Add grid lines
@@ -125,7 +138,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
         .attr('x2', innerWidth)
         .attr('y1', d => yScale(d))
         .attr('y2', d => yScale(d))
-        .style('stroke', '#f0f0f0')
+        .style('stroke', colors.grid)
         .style('stroke-width', '1px');
 
       // Vertical grid lines (only for non-time scales)
@@ -140,7 +153,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
           .attr('x2', d => (xScale as d3.ScalePoint<string>)(d) || 0)
           .attr('y1', 0)
           .attr('y2', innerHeight)
-          .style('stroke', '#f0f0f0')
+          .style('stroke', colors.grid)
           .style('stroke-width', '1px');
       }
     }
@@ -223,8 +236,8 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
             .append('div')
             .attr('class', 'tooltip')
             .style('position', 'absolute')
-            .style('background', 'rgba(0,0,0,0.8)')
-            .style('color', 'white')
+            .style('background', colors.tooltipBg)
+            .style('color', colors.tooltipText)
             .style('padding', '8px')
             .style('border-radius', '4px')
             .style('font-size', '12px')
@@ -254,7 +267,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
       .call(xAxisGenerator)
       .selectAll('text')
       .style('font-size', '12px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .attr('transform', 'rotate(-45)')
       .style('text-anchor', 'end');
 
@@ -263,7 +276,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
       .call(d3.axisLeft(yScale).tickFormat(d3.format('.0s')))
       .selectAll('text')
       .style('font-size', '12px')
-      .style('fill', '#666');
+      .style('fill', colors.axis);
 
     // Add axis labels
     svg
@@ -272,7 +285,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
       .attr('y', height - 20)
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .text(xAxisLabel);
 
     svg
@@ -282,7 +295,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
-      .style('fill', '#666')
+      .style('fill', colors.axis)
       .text(yAxisLabel);
 
     // Add legend
@@ -322,7 +335,7 @@ const MultiSeriesLineChart: React.FC<MultiSeriesLineChartProps> = ({
         .attr('y', 0)
         .attr('dy', '0.35em')
         .style('font-size', '12px')
-        .style('fill', '#333')
+        .style('fill', colors.text)
         .text(d => d.name);
     }
 

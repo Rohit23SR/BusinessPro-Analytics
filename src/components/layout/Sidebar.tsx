@@ -78,12 +78,12 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       {/* Desktop sidebar */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex flex-col w-64">
-          <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
+          <div className="flex flex-col flex-1 min-h-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               {/* Logo */}
               <div className="flex items-center flex-shrink-0 px-6 mb-8">
-                <BarChart3 className="w-8 h-8 text-indigo-600" />
-                <span className="ml-2 text-xl font-bold text-gray-900">
+                <BarChart3 className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+                <span className="ml-2 text-xl font-bold text-gray-900 dark:text-gray-100">
                   BusinessPro
                 </span>
               </div>
@@ -103,8 +103,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                         className={() => {
                           return `group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
                             isActiveRoute
-                              ? 'bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              ? 'bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-400 border-r-2 border-indigo-700 dark:border-indigo-400'
+                              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
                           }`;
                         }}
                       >
@@ -128,8 +128,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                               className={({ isActive: navIsActive }) =>
                                 `block px-3 py-2 text-sm rounded-lg transition-colors duration-200 ${
                                   navIsActive
-                                    ? 'bg-indigo-100 text-indigo-700 font-medium'
-                                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                                    ? 'bg-indigo-100 dark:bg-gray-600 text-indigo-700 dark:text-indigo-400 font-medium'
+                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200'
                                 }`
                               }
                             >
@@ -145,14 +145,14 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             </div>
 
             {/* User section */}
-            <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+            <div className="flex-shrink-0 flex border-t border-gray-200 dark:border-gray-700 p-4">
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center">
                   <span className="text-sm font-medium text-white">{getUserInitials()}</span>
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-700">{getUserDisplayName()}</p>
-                  <p className="text-xs text-gray-500 truncate max-w-[140px]">{user?.email || 'User'}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{getUserDisplayName()}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[140px]">{user?.email || 'User'}</p>
                 </div>
               </div>
             </div>
@@ -166,23 +166,23 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       )}
 
       {/* Mobile sidebar */}
-      <div className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-white transform transition-transform duration-300 ease-in-out ${
+      <div className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transform transition-transform duration-300 ease-in-out ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
           {/* Mobile header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center">
-              <BarChart3 className="w-8 h-8 text-indigo-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">
+              <BarChart3 className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-gray-100">
                 BusinessPro
               </span>
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-6 h-6 text-gray-500 dark:text-gray-400" />
             </button>
           </div>
 
@@ -202,8 +202,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                     className={() => {
                       return `group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
                         isActiveRoute
-                          ? 'bg-indigo-50 text-indigo-700'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-400'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
                       }`;
                     }}
                   >
@@ -223,8 +223,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                           className={({ isActive: navIsActive }) =>
                             `block px-3 py-2 text-sm rounded-lg transition-colors duration-200 ${
                               navIsActive
-                                ? 'bg-indigo-100 text-indigo-700 font-medium'
-                                : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                                ? 'bg-indigo-100 dark:bg-gray-600 text-indigo-700 dark:text-indigo-400 font-medium'
+                                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200'
                             }`
                           }
                         >
@@ -239,14 +239,14 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           </nav>
 
           {/* Mobile user section */}
-          <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+          <div className="flex-shrink-0 flex border-t border-gray-200 dark:border-gray-700 p-4">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium text-white">{getUserInitials()}</span>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700">{getUserDisplayName()}</p>
-                <p className="text-xs text-gray-500 truncate max-w-[140px]">{user?.email || 'User'}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{getUserDisplayName()}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[140px]">{user?.email || 'User'}</p>
               </div>
             </div>
           </div>

@@ -90,72 +90,72 @@ const CustomersPage = () => {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Customer Management</h1>
-        <p className="text-gray-600">Manage your customer base and analyze customer behavior</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Customer Management</h1>
+        <p className="text-gray-600 dark:text-gray-400">Manage your customer base and analyze customer behavior</p>
       </div>
 
       {/* Enhanced Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Users className="w-6 h-6 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Total Customers</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">12,847</div>
-          <div className="text-sm font-medium text-green-600">+8.2% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Customers</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">12,847</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+8.2% vs last month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <UserPlus className="w-6 h-6 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <UserPlus className="w-6 h-6 text-green-600 dark:text-green-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">New This Month</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">2,387</div>
-          <div className="text-sm font-medium text-green-600">+15.3% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">New This Month</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">2,387</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+15.3% vs last month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Mail className="w-6 h-6 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <Mail className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <TrendingDown className="w-5 h-5 text-red-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Active Rate</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">67.3%</div>
-          <div className="text-sm font-medium text-red-600">-2.1% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Active Rate</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">67.3%</div>
+          <div className="text-sm font-medium text-red-600 dark:text-red-400">-2.1% vs last month</div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <DollarSign className="w-6 h-6 text-yellow-600" />
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+              <DollarSign className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-sm text-gray-600 mb-1">Avg CLV</div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">$1,247</div>
-          <div className="text-sm font-medium text-green-600">+12.4% vs last month</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg CLV</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">$1,247</div>
+          <div className="text-sm font-medium text-green-600 dark:text-green-400">+12.4% vs last month</div>
         </div>
       </div>
 
       {/* Customer Acquisition Trends */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Customer Acquisition Trends</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Customer Acquisition Trends</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveSegment('all')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeSegment === 'all' 
                   ? 'bg-blue-100 text-blue-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               All Channels
@@ -165,7 +165,7 @@ const CustomersPage = () => {
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeSegment === 'organic' 
                   ? 'bg-blue-100 text-blue-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Organic Only
@@ -193,8 +193,8 @@ const CustomersPage = () => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Customer Segments */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Customer Segments</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Segments</h3>
           
           <div className="space-y-4">
             {customerSegmentsData.map((segment, index) => {
@@ -202,23 +202,23 @@ const CustomersPage = () => {
               const growth = ((segment.current - segment.previous) / segment.previous * 100);
               const isGrowing = growth > 0;
               
-              const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-red-500', 'bg-gray-500'];
+              const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-red-500', 'bg-gray-50 dark:bg-gray-7000'];
               
               return (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center">
                       <div className={`w-3 h-3 ${colors[index]} rounded-full mr-3`}></div>
                       <div>
-                        <div className="font-medium text-gray-900">{segment.category}</div>
-                        <div className="text-sm text-gray-500">{segment.current.toLocaleString()} customers</div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{segment.category}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{segment.current.toLocaleString()} customers</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-gray-900">
+                      <div className="font-bold text-gray-900 dark:text-gray-100">
                         {percentage.toFixed(1)}%
                       </div>
-                      <div className={`text-sm font-medium ${isGrowing ? 'text-green-600' : 'text-red-600'}`}>
+                      <div className={`text-sm font-medium ${isGrowing ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                         {isGrowing ? '+' : ''}{growth.toFixed(1)}%
                       </div>
                     </div>
@@ -237,8 +237,8 @@ const CustomersPage = () => {
         </div>
 
         {/* Customer Lifetime Value Distribution */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Customer Lifetime Value</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Lifetime Value</h3>
           <div style={{ height: '350px' }} className="flex items-center justify-center">
             <PieChart 
               data={clvDistribution}
@@ -254,10 +254,10 @@ const CustomersPage = () => {
       </div>
 
       {/* Customer Engagement Heatmap */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Engagement by Channel & Segment</h3>
-          <div className="text-sm text-gray-600">Engagement Rate (%)</div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Engagement by Channel & Segment</h3>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Engagement Rate (%)</div>
         </div>
         
         <HeatMap 
@@ -271,8 +271,8 @@ const CustomersPage = () => {
       {/* Bottom Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Customer Retention Curve */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">12-Month Retention Curve</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">12-Month Retention Curve</h3>
           <div style={{ width: '100%', height: '300px' }}>
             <LineChart 
               data={retentionData}
@@ -290,7 +290,7 @@ const CustomersPage = () => {
           </div>
           <div className="mt-4 p-3 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
             <div className="flex items-center">
-              <Target className="w-4 h-4 text-blue-600 mr-2" />
+              <Target className="w-4 h-4 text-blue-600 dark:text-blue-400 mr-2" />
               <span className="text-sm font-medium text-blue-800">12-Month Retention Rate</span>
             </div>
             <p className="text-sm text-blue-700 mt-1">45.8% of customers remain active after one year</p>
@@ -298,13 +298,13 @@ const CustomersPage = () => {
         </div>
 
         {/* Customer Insights & Actions */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Customer Insights</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Insights</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
               <div className="flex items-center">
-                <TrendingUp className="w-4 h-4 text-green-600 mr-2" />
+                <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400 mr-2" />
                 <span className="text-sm font-medium text-green-800">High Organic Growth</span>
               </div>
               <p className="text-sm text-green-700 mt-1">Organic acquisition up 22% this quarter</p>
@@ -312,7 +312,7 @@ const CustomersPage = () => {
 
             <div className="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg">
               <div className="flex items-center">
-                <Mail className="w-4 h-4 text-yellow-600 mr-2" />
+                <Mail className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mr-2" />
                 <span className="text-sm font-medium text-yellow-800">Email Engagement Down</span>
               </div>
               <p className="text-sm text-yellow-700 mt-1">Email open rates dropped 5% - review content strategy</p>
@@ -320,7 +320,7 @@ const CustomersPage = () => {
 
             <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
               <div className="flex items-center">
-                <Star className="w-4 h-4 text-blue-600 mr-2" />
+                <Star className="w-4 h-4 text-blue-600 dark:text-blue-400 mr-2" />
                 <span className="text-sm font-medium text-blue-800">VIP Segment Growing</span>
               </div>
               <p className="text-sm text-blue-700 mt-1">High-value customers increased 9% this month</p>
@@ -328,7 +328,7 @@ const CustomersPage = () => {
 
             <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
               <div className="flex items-center">
-                <Users className="w-4 h-4 text-red-600 mr-2" />
+                <Users className="w-4 h-4 text-red-600 dark:text-red-400 mr-2" />
                 <span className="text-sm font-medium text-red-800">At-Risk Customers</span>
               </div>
               <p className="text-sm text-red-700 mt-1">1,200 customers haven't engaged in 30+ days</p>
@@ -336,8 +336,8 @@ const CustomersPage = () => {
           </div>
 
           {/* Action Items */}
-          <div className="mt-6 pt-4 border-t border-gray-200">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">Recommended Actions</h4>
+          <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Recommended Actions</h4>
             <div className="space-y-2">
               <button className="w-full text-left px-3 py-2 text-sm bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors">
                 Launch re-engagement campaign for at-risk customers

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 interface DataPoint {
   x: string | number | Date;
@@ -51,6 +52,15 @@ const LineChart: React.FC<LineChartProps> = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: height });
+  const [, setThemeUpdate] = useState(0); // Force re-render on theme change
+
+  // Watch for theme changes
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
 
   // Enhanced responsive sizing
   useEffect(() => {
@@ -97,6 +107,9 @@ const LineChart: React.FC<LineChartProps> = ({
 
   useEffect(() => {
     if (!data || data.length === 0 || !svgRef.current) return;
+
+    // Get theme-aware colors
+    const colors = getChartColors();
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -162,7 +175,7 @@ const LineChart: React.FC<LineChartProps> = ({
         .attr('text-anchor', 'middle')
         .style('font-size', isMobile ? '14px' : '16px')
         .style('font-weight', 'bold')
-        .style('fill', '#333')
+        .style('fill', colors.text)
         .text(title);
     }
 
@@ -177,7 +190,7 @@ const LineChart: React.FC<LineChartProps> = ({
         .attr('x2', innerWidth)
         .attr('y1', d => yScale(d))
         .attr('y2', d => yScale(d))
-        .style('stroke', '#f0f0f0')
+        .style('stroke', colors.grid)
         .style('stroke-width', '1px');
 
       if (!(processedData[0][xKey] instanceof Date)) {
@@ -191,7 +204,7 @@ const LineChart: React.FC<LineChartProps> = ({
           .attr('x2', d => (xScale as d3.ScalePoint<string>)(d) || 0)
           .attr('y1', 0)
           .attr('y2', innerHeight)
-          .style('stroke', '#f0f0f0')
+          .style('stroke', colors.grid)
           .style('stroke-width', '1px');
       }
     }
@@ -281,8 +294,8 @@ const LineChart: React.FC<LineChartProps> = ({
                 .append('div')
                 .attr('class', 'tooltip')
                 .style('position', 'absolute')
-                .style('background', 'rgba(0,0,0,0.9)')
-                .style('color', 'white')
+                .style('background', colors.tooltipBg)
+                .style('color', colors.tooltipText)
                 .style('padding', '8px 12px')
                 .style('border-radius', '6px')
                 .style('font-size', '12px')

@@ -249,6 +249,18 @@ export const useSettings = () => {
     };
     setSettings(newSettings);
 
+    // If theme is being updated, save to localStorage for instant sync
+    if (key === 'theme') {
+      localStorage.setItem('theme', value as string);
+      // Apply theme immediately to DOM
+      const root = document.documentElement;
+      if (value === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+
     // Save to backend if configured
     if (useBackendApi) {
       setIsSaving(true);

@@ -22,11 +22,11 @@ const funnelData1 = [
 ];
 
 const funnelSeries1 = [
-  { key: 'landingPage', name: 'Landing Page View', color: '#06b6d4', strokeWidth: 2 },
-  { key: 'productView', name: 'Product View', color: '#10b981', strokeWidth: 2 },
-  { key: 'addToCart', name: 'Add to Cart', color: '#f59e0b', strokeWidth: 2 },
-  { key: 'checkout', name: 'Checkout Started', color: '#ef4444', strokeWidth: 2 },
-  { key: 'purchase', name: 'Purchase Complete', color: '#8b5cf6', strokeWidth: 3 },
+  { key: 'landingPage', name: 'Landing Page View', color: '#22d3ee', strokeWidth: 2 },
+  { key: 'productView', name: 'Product View', color: '#22c55e', strokeWidth: 2 },
+  { key: 'addToCart', name: 'Add to Cart', color: '#fbbf24', strokeWidth: 2 },
+  { key: 'checkout', name: 'Checkout Started', color: '#f87171', strokeWidth: 2 },
+  { key: 'purchase', name: 'Purchase Complete', color: '#a78bfa', strokeWidth: 3 },
 ];
 
 const ConversionsPage = () => {
@@ -58,7 +58,7 @@ const ConversionsPage = () => {
   if (isError) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-600">Failed to load conversion data</p>
+        <p className="text-red-600 dark:text-red-400">Failed to load conversion data</p>
       </div>
     );
   }
@@ -77,70 +77,70 @@ const ConversionsPage = () => {
     <div className="space-y-8">
       {/* Conversion Summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Users className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
             {totalVisitors.toLocaleString()}
           </div>
-          <div className="text-sm text-gray-600">Total Visitors</div>
-          <div className="text-xs text-green-600 mt-1">+15.3% vs last period</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Total Visitors</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+15.3% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <Target className="w-5 h-5 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <Target className="w-5 h-5 text-green-600 dark:text-green-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
             {conversions.toLocaleString()}
           </div>
-          <div className="text-sm text-gray-600">Total Conversions</div>
-          <div className="text-xs text-green-600 mt-1">+8.7% vs last period</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Total Conversions</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+8.7% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <ShoppingCart className="w-5 h-5 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <ShoppingCart className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-red-500" />
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">{overallConversionRate}%</div>
-          <div className="text-sm text-gray-600">Conversion Rate</div>
-          <div className="text-xs text-red-600 mt-1">-2.1% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{overallConversionRate}%</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Conversion Rate</div>
+          <div className="text-xs text-red-600 dark:text-red-400 mt-1">-2.1% vs last period</div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <Target className="w-5 h-5 text-yellow-600" />
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+              <Target className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
             </div>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-1">$89.32</div>
-          <div className="text-sm text-gray-600">Avg Order Value</div>
-          <div className="text-xs text-green-600 mt-1">+5.7% vs last period</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">$89.32</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Avg Order Value</div>
+          <div className="text-xs text-green-600 dark:text-green-400 mt-1">+5.7% vs last period</div>
         </div>
       </div>
 
       {/* Conversion Funnel with Working Tabs */}
-      <div className="bg-white rounded-lg p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Conversion Funnel</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Conversion Funnel</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setActiveFunnelTab('ecommerce')}
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeFunnelTab === 'ecommerce' 
                   ? 'bg-indigo-100 text-indigo-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               E-commerce
@@ -150,7 +150,7 @@ const ConversionsPage = () => {
               className={`px-3 py-1 text-xs rounded-lg transition-colors ${
                 activeFunnelTab === 'leadgen' 
                   ? 'bg-indigo-100 text-indigo-700' 
-                  : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700'
               }`}
             >
               Lead Gen
@@ -170,33 +170,33 @@ const ConversionsPage = () => {
             const leadgenColors = ['bg-green-500', 'bg-emerald-500', 'bg-teal-500', 'bg-cyan-500', 'bg-blue-500'];
             
             const colorArray = activeFunnelTab === 'ecommerce' ? ecommerceColors : leadgenColors;
-            const stepColor = colorArray[stepIndex] || 'bg-gray-500';
+            const stepColor = colorArray[stepIndex] || 'bg-gray-50 dark:bg-gray-7000';
             
             return (
               <div key={stepIndex}>
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold mr-4 ${stepColor}`}>
                       {stepIndex + 1}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{step.step}</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="font-medium text-gray-900 dark:text-gray-100">{step.step}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
                         {step.percentage.toFixed(1)}% of total visitors
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-gray-900">
+                    <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
                       {step.visitors.toLocaleString()}
                     </div>
-                    <div className="text-sm text-gray-500">visitors</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">visitors</div>
                   </div>
                 </div>
                 
                 {!isLast && (
                   <div className="flex items-center justify-center py-2">
-                    <div className="flex items-center text-sm text-red-600">
+                    <div className="flex items-center text-sm text-red-600 dark:text-red-400">
                       <span className="mr-2">↓</span>
                       {dropOffRate}% drop-off
                     </div>
@@ -210,51 +210,53 @@ const ConversionsPage = () => {
         {/* Funnel Summary Stats */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {totalVisitors.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-600">Total Entries</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Total Entries</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
               {conversions.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-600">Conversions</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Conversions</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-indigo-600">
+            <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
               {overallConversionRate}%
             </div>
-            <div className="text-sm text-gray-600">Conversion Rate</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Conversion Rate</div>
           </div>
         </div>
       </div>
 
       {/* Conversion Trends - Fixed */}
-      <div className="bg-white rounded-lg p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Conversion Rate Trends</h3>
-        
-        <div style={{ width: '100%', height: '500px' }}>
-          <LineChart 
-            data={funnelData1}
-            series={funnelSeries1}
-            title="Conversion Funnel Step Analysis (%)"
-            xAxisLabel="Month"
-            yAxisLabel="Step Conversion Rate (%)"
-            width="100%"
-            height={500}
-            showGrid={true}
-            showLegend={true}
-            showDots={true}
-            responsive={true}
-          />
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion Rate Trends</h3>
+
+        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+          <div style={{ width: '100%', height: '500px' }}>
+            <LineChart
+              data={funnelData1}
+              series={funnelSeries1}
+              title="Conversion Funnel Step Analysis (%)"
+              xAxisLabel="Month"
+              yAxisLabel="Step Conversion Rate (%)"
+              width="100%"
+              height={500}
+              showGrid={true}
+              showLegend={true}
+              showDots={true}
+              responsive={true}
+            />
+          </div>
         </div>
       </div>
 
       {/* Conversion by Source */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Conversion by Traffic Source</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion by Traffic Source</h3>
           
           <div className="space-y-4">
             {[
@@ -264,28 +266,28 @@ const ConversionsPage = () => {
               { source: 'Direct Traffic', conversions: 678, rate: 3.9, revenue: '$28,430' },
               { source: 'Email', conversions: 234, rate: 8.4, revenue: '$15,670' }
             ].map((source, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <div className="font-medium text-gray-900">{source.source}</div>
-                  <div className="text-sm text-gray-500">{source.conversions} conversions</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{source.source}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{source.conversions} conversions</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-gray-900">{source.rate}%</div>
-                  <div className="text-sm text-gray-500">{source.revenue}</div>
+                  <div className="font-bold text-gray-900 dark:text-gray-100">{source.rate}%</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{source.revenue}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Optimization Opportunities</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Optimization Opportunities</h3>
           
           <div className="space-y-4">
             <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="text-red-600 text-lg">⚠️</div>
+                  <div className="text-red-600 dark:text-red-400 text-lg">⚠️</div>
                 </div>
                 <div className="ml-3">
                   <div className="text-sm font-medium text-red-800">High Cart Abandonment</div>
@@ -299,7 +301,7 @@ const ConversionsPage = () => {
             <div className="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="text-yellow-600 text-lg">💡</div>
+                  <div className="text-yellow-600 dark:text-yellow-400 text-lg">💡</div>
                 </div>
                 <div className="ml-3">
                   <div className="text-sm font-medium text-yellow-800">Mobile Optimization</div>
@@ -313,7 +315,7 @@ const ConversionsPage = () => {
             <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="text-green-600 text-lg">✅</div>
+                  <div className="text-green-600 dark:text-green-400 text-lg">✅</div>
                 </div>
                 <div className="ml-3">
                   <div className="text-sm font-medium text-green-800">Email Campaigns</div>
@@ -337,7 +339,7 @@ const ConversionsPage = () => {
             </p>
             <div className="w-full bg-indigo-400 rounded-full h-3">
               <div 
-                className="bg-white h-3 rounded-full transition-all duration-500"
+                className="bg-white dark:bg-gray-800 h-3 rounded-full transition-all duration-500"
                 style={{ width: `${Math.min((parseFloat(overallConversionRate) / 4.5) * 100, 100)}%` }}
               ></div>
             </div>

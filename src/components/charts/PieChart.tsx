@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getChartColors, watchThemeChange } from '../../utils/darkMode';
 
 interface PieChartData {
   name: string;
@@ -41,12 +42,24 @@ const PieChart = ({
 }: PieChartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRendered = useRef<boolean>(false);
+  const [, setThemeUpdate] = useState(0);
 
   const radius = outerRadius || Math.min(width, height) / 2 - 30; // More padding
   const total = data.reduce((sum, d) => sum + d.value, 0);
 
+  // Watch for theme changes and trigger re-render
+  useEffect(() => {
+    const cleanup = watchThemeChange(() => {
+      setThemeUpdate(prev => prev + 1);
+    });
+    return cleanup;
+  }, []);
+
   useEffect(() => {
     if (!data || data.length === 0 || !containerRef.current) return;
+
+    // Get theme-aware colors
+    const themeColors = getChartColors();
 
     // Reset chart when data changes
     chartRendered.current = false;
@@ -77,8 +90,8 @@ const PieChart = ({
         .append('div')
         .attr('class', 'pie-chart-tooltip')
         .style('position', 'absolute')
-        .style('background', 'white')
-        .style('border', '1px solid #e5e7eb')
+        .style('background', themeColors.cardBg)
+        .style('border', `1px solid ${themeColors.tooltipBorder}`)
         .style('border-radius', '8px')
         .style('box-shadow', '0 10px 15px -3px rgba(0, 0, 0, 0.1)')
         .style('padding', '12px')
@@ -179,7 +192,7 @@ const PieChart = ({
         })
         .style("font-size", Math.min(width, height) < 200 ? "10px" : "12px")
         .style("font-weight", "500")
-        .style("fill", "#374151")
+        .style("fill", themeColors.text)
         .style("opacity", 0)
         .style("pointer-events", "none");
 
@@ -230,9 +243,9 @@ const PieChart = ({
           tooltip
             .style("opacity", 1)
             .html(`
-              <div style="font-weight: 600; color: #111827; margin-bottom: 6px; font-size: 14px;">${d.data.name}</div>
-              <div style="color: #6b7280; margin-bottom: 2px;">Value: <span style="font-weight: 500;">${d3.format(",")(d.data.value)}</span></div>
-              <div style="color: #6b7280;">Percentage: <span style="font-weight: 500;">${((d.data.value / total) * 100).toFixed(1)}%</span></div>
+              <div style="font-weight: 600; color: ${themeColors.text}; margin-bottom: 6px; font-size: 14px;">${d.data.name}</div>
+              <div style="color: ${themeColors.textMuted}; margin-bottom: 2px;">Value: <span style="font-weight: 500;">${d3.format(",")(d.data.value)}</span></div>
+              <div style="color: ${themeColors.textMuted};">Percentage: <span style="font-weight: 500;">${((d.data.value / total) * 100).toFixed(1)}%</span></div>
             `)
             .style("left", (event.pageX + 12) + "px")
             .style("top", (event.pageY - 12) + "px");
