@@ -22,6 +22,7 @@ A modern, full-featured business analytics dashboard built with React, TypeScrip
 - **Protected Routes** - Route guards for authenticated areas
 
 ### Settings & Personalization
+- **Dark Mode Support** - Full dark theme with seamless light/dark mode switching
 - **Profile Settings** - Theme, language, timezone, currency preferences
 - **Dashboard Customization** - Layout options, widget toggles, auto-refresh
 - **Notification Preferences** - Email alerts, push notifications, alert thresholds
@@ -42,7 +43,7 @@ A modern, full-featured business analytics dashboard built with React, TypeScrip
 - **Styling**: Tailwind CSS
 - **State Management**: TanStack Query (React Query)
 - **Routing**: React Router v6
-- **Charts**: Custom SVG-based LineChart and PieChart components
+- **Charts**: Custom SVG-based chart components (LineChart, MultiSeriesLineChart, PieChart, BarChart, AreaChart, Heatmap, Sankey)
 - **Icons**: Lucide React
 - **Backend**: AWS Amplify Gen 2
   - AWS Lambda (Node.js)
@@ -55,7 +56,7 @@ A modern, full-featured business analytics dashboard built with React, TypeScrip
 ```
 src/
 ├── components/
-│   ├── charts/           # LineChart, PieChart
+│   ├── charts/           # LineChart, MultiSeriesLineChart, PieChart, BarChart, AreaChart, Heatmap, Sankey
 │   ├── layout/           # Header, Sidebar, DashboardLayout
 │   ├── settings/         # ProfileTab, DashboardTab, NotificationsTab, IntegrationsTab
 │   └── ui/               # LoadingSpinner, ErrorBoundary, NotificationPopup
@@ -230,10 +231,14 @@ Revenue page includes a goal-setting modal:
 - Real-time progress calculation
 - Visual notification on save
 
-### Responsive Design
-- Desktop sidebar navigation
-- Mobile-friendly hamburger menu
-- Adaptive layouts for all screen sizes
+### Responsive Design & UI/UX
+- **Mobile-First Architecture** - Optimized for mobile, tablet, and desktop
+- **Responsive Typography** - Consistent font scaling across all screen sizes
+- **Adaptive Navigation** - Desktop sidebar, mobile hamburger menu
+- **Responsive Charts** - All visualizations adapt to screen size
+- **Dark Mode** - Complete theme support with optimized contrast
+- **Fixed Position Notifications** - Toast notifications with zero layout shift
+- **Optimistic UI Updates** - Instant feedback for all user actions
 
 ## Environment Variables
 
