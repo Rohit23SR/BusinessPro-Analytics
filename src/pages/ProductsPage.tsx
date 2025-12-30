@@ -261,6 +261,8 @@ const ProductsPage = () => {
           <div className="h-[280px] sm:h-[350px] flex items-center justify-center">
             <PieChart
               data={categoryDistribution}
+              width={200}
+              height={200}
               showLabels={true}
               showLegend={true}
               animate={true}

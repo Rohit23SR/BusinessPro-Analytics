@@ -264,6 +264,8 @@ const DashboardPage = () => {
                   value: item.value,
                   color: item.color
                 })) || trafficDataSets[dataIndex]}
+                width={200}
+                height={200}
                 showLabels={true}
                 showLegend={true}
                 animate={true}
