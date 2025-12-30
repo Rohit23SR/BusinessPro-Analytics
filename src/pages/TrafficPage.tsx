@@ -211,7 +211,12 @@ const TrafficPage = () => {
               yAxisLabel="Sessions"
               showGrid={true}
               showLegend={true}
-              margin={{ top: 30, right: 120, bottom: 80, left: 80 }}
+              margin={{
+                top: 20,
+                right: window.innerWidth < 640 ? 20 : window.innerWidth < 768 ? 60 : 120,
+                bottom: window.innerWidth < 640 ? 60 : 80,
+                left: window.innerWidth < 640 ? 40 : window.innerWidth < 768 ? 60 : 80
+              }}
             />
           </div>
         </div>
@@ -257,7 +262,12 @@ const TrafficPage = () => {
               yAxisLabel={chartConfig.yAxisLabel || "Value"}
               showGrid={true}
               showLegend={chartConfig.series.length > 1}
-              margin={{ top: 30, right: 100, bottom: 80, left: 80 }}
+              margin={{
+                top: 20,
+                right: window.innerWidth < 640 ? 20 : window.innerWidth < 768 ? 60 : 100,
+                bottom: window.innerWidth < 640 ? 60 : 80,
+                left: window.innerWidth < 640 ? 40 : window.innerWidth < 768 ? 60 : 80
+              }}
             />
           </div>
         </div>
