@@ -475,13 +475,13 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
 
             {/* Notifications dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[70vh] sm:max-h-[500px] overflow-hidden">
+              <div className="fixed sm:absolute right-2 sm:right-0 mt-2 w-[calc(100vw-1rem)] sm:w-96 max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[80vh] sm:max-h-[500px] overflow-hidden">
                 {/* Header */}
-                <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20">
-                  <div className="flex items-center justify-between">
+                <div className="px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20">
+                  <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center space-x-2">
-                      <Bell className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Notifications</h3>
+                      <Bell className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400" />
+                      <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100">Notifications</h3>
                       {unreadCount > 0 && (
                         <span className="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 text-xs font-medium px-2 py-0.5 rounded-full">
                           {unreadCount} new
@@ -500,7 +500,7 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
                 </div>
 
                 {/* Notifications list */}
-                <div className="max-h-[50vh] sm:max-h-[380px] overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
+                <div className="max-h-[60vh] sm:max-h-[380px] overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
                   {notifications.length === 0 ? (
                     <div className="px-4 py-8 text-center">
                       <Bell className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
@@ -511,12 +511,12 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
                       <div
                         key={notification.id}
                         onClick={() => markAsRead(notification.id)}
-                        className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer group ${
+                        className={`px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer group ${
                           !notification.isRead ? 'bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-900/20 dark:to-transparent border-l-4 border-l-indigo-500 dark:border-l-indigo-400' : 'border-l-4 border-l-transparent'
                         }`}
                       >
-                        <div className="flex items-start space-x-3">
-                          <div className={`flex-shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center ${
+                        <div className="flex items-start space-x-2 sm:space-x-3">
+                          <div className={`flex-shrink-0 mt-0.5 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${
                             notification.type === 'alert' ? 'bg-red-100 dark:bg-red-900/30' :
                             notification.type === 'success' ? 'bg-green-100 dark:bg-green-900/30' :
                             notification.type === 'warning' ? 'bg-orange-100 dark:bg-orange-900/30' :
@@ -560,13 +560,13 @@ const Header = ({ onMenuClick, currentRoute }: HeaderProps) => {
                 </div>
 
                 {/* Footer */}
-                <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
+                <div className="px-3 sm:px-4 py-2 sm:py-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
                   <button
                     onClick={() => {
                       navigate('/dashboard/settings?tab=notifications');
                       setShowNotifications(false);
                     }}
-                    className="w-full text-center text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium py-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md transition-colors"
+                    className="w-full text-center text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium py-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md transition-colors"
                   >
                     View all notifications
                   </button>
