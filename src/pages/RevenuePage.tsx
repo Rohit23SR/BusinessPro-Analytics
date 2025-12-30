@@ -180,7 +180,7 @@ const RevenuePage = () => {
           </div>
         </div>
         
-        <div style={{ width: '100%', height: '400px' }}>
+        <div style={{ width: '100%', height: window.innerWidth < 640 ? '300px' : '400px' }}>
           <LineChart 
             data={chartData}
             series={revenueSeries}
@@ -198,7 +198,7 @@ const RevenuePage = () => {
       </div>
 
       {/* Revenue Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Monthly Breakdown */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Monthly Performance</h3>

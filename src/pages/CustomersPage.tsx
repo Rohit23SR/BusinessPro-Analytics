@@ -173,7 +173,7 @@ const CustomersPage = () => {
           </div>
         </div>
         
-        <div style={{ width: '100%', height: '400px' }}>
+        <div style={{ width: '100%', height: window.innerWidth < 640 ? '300px' : '400px' }}>
           <LineChart 
             data={customerAcquisitionData}
             series={acquisitionSeries}
@@ -191,7 +191,7 @@ const CustomersPage = () => {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Customer Segments */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Segments</h3>
@@ -239,7 +239,7 @@ const CustomersPage = () => {
         {/* Customer Lifetime Value Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Lifetime Value</h3>
-          <div style={{ height: '350px' }} className="flex items-center justify-center">
+          <div style={{ height: window.innerWidth < 640 ? '280px' : '350px' }} className="flex items-center justify-center">
             <PieChart 
               data={clvDistribution}
               width={350}
@@ -269,7 +269,7 @@ const CustomersPage = () => {
       </div>
 
       {/* Bottom Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Customer Retention Curve */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">12-Month Retention Curve</h3>

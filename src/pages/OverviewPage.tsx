@@ -356,7 +356,7 @@ const OverviewPage = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Traffic Trends with Toggle */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
@@ -457,7 +457,7 @@ const OverviewPage = () => {
       </div>
 
       {/* Data Tables */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Top Landing Pages */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Top Landing Pages</h3>

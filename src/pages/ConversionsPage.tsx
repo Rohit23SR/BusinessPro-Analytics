@@ -235,7 +235,7 @@ const ConversionsPage = () => {
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion Rate Trends</h3>
 
         <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
-          <div style={{ width: '100%', height: '500px' }}>
+          <div style={{ width: '100%', height: window.innerWidth < 640 ? '350px' : '500px' }}>
             <LineChart
               data={funnelData1}
               series={funnelSeries1}
@@ -254,7 +254,7 @@ const ConversionsPage = () => {
       </div>
 
       {/* Conversion by Source */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion by Traffic Source</h3>
           

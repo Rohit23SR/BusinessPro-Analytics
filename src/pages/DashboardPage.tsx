@@ -160,16 +160,16 @@ const DashboardPage = () => {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard Overview</h1>
-          <p className="text-gray-600 dark:text-gray-400">Monitor your business performance and key metrics</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard Overview</h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Monitor your business performance and key metrics</p>
         </div>
-        
+
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 shadow-md hover:shadow-lg transition-all duration-200"
+          className="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 shadow-md hover:shadow-lg transition-all duration-200 w-full sm:w-auto"
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
           {refreshing ? 'Refreshing...' : 'Refresh Data'}
@@ -201,21 +201,21 @@ const DashboardPage = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
-            <div className="hidden md:flex space-x-4">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Revenue Trends</h3>
+            <div className="flex flex-wrap gap-3 sm:gap-4">
+              <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                 Actual
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-indigo-500 rounded-full mr-2"></div>
                 Target
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 <div className="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
                 Previous Year
               </div>
@@ -223,19 +223,19 @@ const DashboardPage = () => {
           </div>
           
           {revenue.isLoading ? (
-            <div className="h-64 flex items-center justify-center">
+            <div className="h-48 sm:h-64 flex items-center justify-center">
               <LoadingSpinner size="sm" text="Loading chart..." />
             </div>
           ) : (
-            <div className="w-full" style={{ height: '350px' }}>
-               <LineChart 
+            <div className="w-full h-64 sm:h-80 md:h-96">
+               <LineChart
                 data={revenueDataSets[dataIndex]}
                 series={seriesConfig}
                 title=""
                 xAxisLabel="Month"
                 yAxisLabel="Revenue ($)"
-                height={350}
-                margin={{ top: 20, right: 20, bottom: 60, left: 70 }}
+                height={window.innerWidth < 640 ? 256 : window.innerWidth < 768 ? 320 : 384}
+                margin={{ top: 20, right: 15, bottom: 60, left: window.innerWidth < 640 ? 50 : 70 }}
                 showGrid={true}
                 showLegend={false}
                 showDots={true}
@@ -246,28 +246,28 @@ const DashboardPage = () => {
         </div>
 
         {/* Traffic Sources Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Sources</h3>
-            <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Traffic Sources</h3>
+            <button className="text-xs sm:text-sm text-indigo-600 hover:text-indigo-700 font-medium self-start sm:self-center">
               View Details →
             </button>
           </div>
-          
+
           {traffic.isLoading ? (
-            <div className="h-64 flex items-center justify-center">
+            <div className="h-48 sm:h-64 flex items-center justify-center">
               <LoadingSpinner size="sm" text="Loading chart..." />
             </div>
           ) : (
-            <div className="w-full" style={{ height: '350px' }}>
+            <div className="w-full h-64 sm:h-80 md:h-96">
               <PieChart
                 data={traffic.data?.map(item => ({
                   name: item.name,
                   value: item.value,
                   color: item.color
                 })) || trafficDataSets[dataIndex]}
-                width={280}
-                height={200}
+                width={window.innerWidth < 640 ? 250 : 280}
+                height={window.innerWidth < 640 ? 180 : 200}
                 showLabels={true}
                 showLegend={true}
                 animate={true}
@@ -278,7 +278,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Data Tables */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Recent Activity */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Recent Activity</h3>
@@ -343,18 +343,18 @@ const DashboardPage = () => {
       </div>
 
       {/* Quick Insights */}
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">💡 Quick Insights</h3>
-            <p className="text-indigo-100">
-              Revenue is up {kpis.data?.[0]?.change || '12.5%'} this month. 
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="text-base sm:text-lg font-semibold mb-2">💡 Quick Insights</h3>
+            <p className="text-sm sm:text-base text-indigo-100">
+              Revenue is up {kpis.data?.[0]?.change || '12.5%'} this month.
               Consider increasing marketing spend on high-performing channels.
             </p>
           </div>
           <Link
             to="/dashboard/analytics"
-            className="px-4 py-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors"
+            className="px-4 py-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors text-center sm:text-left whitespace-nowrap text-sm sm:text-base"
           >
             View Analytics →
           </Link>
