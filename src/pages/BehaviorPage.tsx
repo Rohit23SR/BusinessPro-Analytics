@@ -49,7 +49,7 @@ const BehaviorPage = () => {
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Device Usage</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {data?.deviceBreakdown.map((device, index) => (
             <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
               <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
@@ -77,15 +77,15 @@ const BehaviorPage = () => {
 
       {/* User Activity Heatmap */}
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Feature Usage Heatmap</h3>
-          <div className="flex space-x-2">
+          <div className="flex flex-wrap gap-2">
             <button className="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-lg">By User Type</button>
             <button className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 rounded-lg">By Time</button>
           </div>
         </div>
-        
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4">
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 overflow-x-auto">
           <Heatmap
             data={featureUsageData}
             title="Feature Usage by User Segment"
@@ -143,12 +143,11 @@ const BehaviorPage = () => {
       {/* User Journey Flow - Now with Sankey Component */}
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">User Journey Flow</h3>
-        
+
         {/* Use the UserJourneySankey component */}
-        <UserJourneySankey 
-          width={800}
-          height={400}
-        />
+        <div className="overflow-x-auto">
+          <UserJourneySankey />
+        </div>
       </div>
 
       {/* Engagement Patterns */}

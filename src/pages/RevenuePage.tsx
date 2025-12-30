@@ -180,15 +180,13 @@ const RevenuePage = () => {
           </div>
         </div>
         
-        <div style={{ width: '100%', height: window.innerWidth < 640 ? '300px' : '400px' }}>
-          <LineChart 
+        <div className="w-full h-[300px] sm:h-[400px]">
+          <LineChart
             data={chartData}
             series={revenueSeries}
             title=""
             xAxisLabel="Month"
             yAxisLabel="Revenue ($) / Orders (scaled)"
-            width="100%"
-            height={400}
             showGrid={true}
             showLegend={true}
             showDots={true}
@@ -274,27 +272,27 @@ const RevenuePage = () => {
       </div>
 
       {/* Revenue Goals */}
-      <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-xl font-bold mb-2">🎯 Monthly Revenue Goal</h3>
-            <p className="text-green-100 mb-4">
+      <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-4 sm:p-6 text-white">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="text-lg sm:text-xl font-bold mb-2">🎯 Monthly Revenue Goal</h3>
+            <p className="text-sm sm:text-base text-green-100 mb-4">
               You're {lastMonth?.target && lastMonth.revenue >= lastMonth.target ? 'exceeding' : 'tracking toward'} your revenue target for this month
             </p>
-            <div className="flex items-center space-x-6">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6">
               <div>
-                <div className="text-sm text-green-200">Current</div>
-                <div className="text-2xl font-bold">${lastMonth?.revenue.toLocaleString()}</div>
+                <div className="text-xs sm:text-sm text-green-200">Current</div>
+                <div className="text-lg sm:text-2xl font-bold">${lastMonth?.revenue.toLocaleString()}</div>
               </div>
               <div>
-                <div className="text-sm text-green-200">Target</div>
-                <div className="text-2xl font-bold">
+                <div className="text-xs sm:text-sm text-green-200">Target</div>
+                <div className="text-lg sm:text-2xl font-bold">
                   ${customGoal ? customGoal.toLocaleString() : lastMonth?.target?.toLocaleString()}
                 </div>
               </div>
               <div>
-                <div className="text-sm text-green-200">Progress</div>
-                <div className="text-2xl font-bold">
+                <div className="text-xs sm:text-sm text-green-200">Progress</div>
+                <div className="text-lg sm:text-2xl font-bold">
                   {(customGoal || lastMonth?.target)
                     ? Math.round((lastMonth.revenue / (customGoal || lastMonth.target)) * 100)
                     : 0}%
@@ -302,10 +300,10 @@ const RevenuePage = () => {
               </div>
             </div>
           </div>
-          <div className="text-right">
+          <div className="lg:text-right">
             <button
               onClick={() => setShowGoalModal(true)}
-              className="px-6 py-3 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium"
+              className="w-full lg:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors font-medium text-sm sm:text-base"
             >
               Set New Goal
             </button>

@@ -18,7 +18,7 @@ const TrafficPage = () => {
     const updateChartWidth = () => {
       if (chartContainerRef.current) {
         const containerWidth = chartContainerRef.current.offsetWidth;
-        setChartWidth(Math.max(600, containerWidth - 40)); // 40px for padding
+        setChartWidth(Math.max(300, containerWidth - 40)); // Reduced min width for mobile
       }
     };
 
