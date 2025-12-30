@@ -173,15 +173,13 @@ const CustomersPage = () => {
           </div>
         </div>
         
-        <div style={{ width: '100%', height: window.innerWidth < 640 ? '300px' : '400px' }}>
-          <LineChart 
+        <div className="w-full h-[300px] sm:h-[400px]">
+          <LineChart
             data={customerAcquisitionData}
             series={acquisitionSeries}
             title=""
             xAxisLabel="Month"
             yAxisLabel="New Customers"
-            width="100%"
-            height={400}
             showGrid={true}
             showLegend={true}
             showDots={true}
@@ -202,7 +200,7 @@ const CustomersPage = () => {
               const growth = ((segment.current - segment.previous) / segment.previous * 100);
               const isGrowing = growth > 0;
               
-              const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-red-500', 'bg-gray-50 dark:bg-gray-7000'];
+              const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-red-500', 'bg-gray-500'];
               
               return (
                 <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -239,11 +237,9 @@ const CustomersPage = () => {
         {/* Customer Lifetime Value Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Customer Lifetime Value</h3>
-          <div style={{ height: window.innerWidth < 640 ? '280px' : '350px' }} className="flex items-center justify-center">
-            <PieChart 
+          <div className="h-[280px] sm:h-[350px] flex items-center justify-center">
+            <PieChart
               data={clvDistribution}
-              width={350}
-              height={350}
               showLabels={true}
               showLegend={true}
               animate={true}
@@ -255,17 +251,17 @@ const CustomersPage = () => {
 
       {/* Customer Engagement Heatmap */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Engagement by Channel & Segment</h3>
           <div className="text-sm text-gray-600 dark:text-gray-400">Engagement Rate (%)</div>
         </div>
-        
-        <HeatMap 
-          data={engagementHeatmapData}
-          width={600}
-          height={300}
-          title=""
-        />
+
+        <div className="overflow-x-auto">
+          <HeatMap
+            data={engagementHeatmapData}
+            title=""
+          />
+        </div>
       </div>
 
       {/* Bottom Grid */}
@@ -273,15 +269,13 @@ const CustomersPage = () => {
         {/* Customer Retention Curve */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">12-Month Retention Curve</h3>
-          <div style={{ width: '100%', height: '300px' }}>
-            <LineChart 
+          <div className="w-full h-[300px]">
+            <LineChart
               data={retentionData}
               series={[{ key: 'y', name: 'Active Customers', color: '#3B82F6', strokeWidth: 3 }]}
               title=""
               xAxisLabel="Months Since Signup"
               yAxisLabel="Active Customers"
-              width="100%"
-              height={300}
               showGrid={true}
               showLegend={false}
               showDots={true}

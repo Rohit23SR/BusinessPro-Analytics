@@ -76,7 +76,7 @@ const ConversionsPage = () => {
   return (
     <div className="space-y-8">
       {/* Conversion Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -170,7 +170,7 @@ const ConversionsPage = () => {
             const leadgenColors = ['bg-green-500', 'bg-emerald-500', 'bg-teal-500', 'bg-cyan-500', 'bg-blue-500'];
             
             const colorArray = activeFunnelTab === 'ecommerce' ? ecommerceColors : leadgenColors;
-            const stepColor = colorArray[stepIndex] || 'bg-gray-50 dark:bg-gray-7000';
+            const stepColor = colorArray[stepIndex] || 'bg-gray-500';
             
             return (
               <div key={stepIndex}>
@@ -235,15 +235,13 @@ const ConversionsPage = () => {
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Conversion Rate Trends</h3>
 
         <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
-          <div style={{ width: '100%', height: window.innerWidth < 640 ? '350px' : '500px' }}>
+          <div className="w-full h-[350px] sm:h-[500px]">
             <LineChart
               data={funnelData1}
               series={funnelSeries1}
               title="Conversion Funnel Step Analysis (%)"
               xAxisLabel="Month"
               yAxisLabel="Step Conversion Rate (%)"
-              width="100%"
-              height={500}
               showGrid={true}
               showLegend={true}
               showDots={true}

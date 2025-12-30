@@ -174,15 +174,13 @@ const ProductsPage = () => {
           </div>
         </div>
         
-        <div style={{ width: '100%', height: window.innerWidth < 640 ? '300px' : '400px' }}>
-          <LineChart 
+        <div className="w-full h-[300px] sm:h-[400px]">
+          <LineChart
             data={productSalesData}
             series={productSalesSeries}
             title=""
             xAxisLabel="Month"
             yAxisLabel="Sales ($)"
-            width="100%"
-            height={400}
             showGrid={true}
             showLegend={true}
             showDots={true}
@@ -210,7 +208,7 @@ const ProductsPage = () => {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3 ${
                         index === 0 ? 'bg-blue-500' :
                         index === 1 ? 'bg-indigo-500' :
-                        index === 2 ? 'bg-purple-500' : 'bg-gray-50 dark:bg-gray-7000'
+                        index === 2 ? 'bg-purple-500' : 'bg-gray-500'
                       }`}>
                         {index + 1}
                       </div>
@@ -260,11 +258,9 @@ const ProductsPage = () => {
         {/* Category Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Sales by Category</h3>
-          <div style={{ height: window.innerWidth < 640 ? '280px' : '350px' }} className="flex items-center justify-center">
-            <PieChart 
+          <div className="h-[280px] sm:h-[350px] flex items-center justify-center">
+            <PieChart
               data={categoryDistribution}
-              width={350}
-              height={350}
               showLabels={true}
               showLegend={true}
               animate={true}
@@ -276,17 +272,17 @@ const ProductsPage = () => {
 
       {/* Product Performance Heatmap */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quarterly Performance by Category</h3>
           <div className="text-sm text-gray-600 dark:text-gray-400">Performance Score (%)</div>
         </div>
-        
-        <HeatMap 
-          data={productPerformanceData}
-          width={800}
-          height={300}
-          title=""
-        />
+
+        <div className="overflow-x-auto">
+          <HeatMap
+            data={productPerformanceData}
+            title=""
+          />
+        </div>
       </div>
 
       {/* Bottom Grid */}
@@ -294,15 +290,13 @@ const ProductsPage = () => {
         {/* Inventory Levels */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Inventory Levels Trend</h3>
-          <div style={{ width: '100%', height: '300px' }}>
-            <LineChart 
+          <div className="w-full h-[300px]">
+            <LineChart
               data={inventoryData}
               series={[{ key: 'y', name: 'Stock Level', color: '#EF4444', strokeWidth: 3 }]}
               title=""
               xAxisLabel="Week"
               yAxisLabel="Units in Stock"
-              width="100%"
-              height={300}
               showGrid={true}
               showLegend={false}
               showDots={true}

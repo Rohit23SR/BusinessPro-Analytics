@@ -177,7 +177,7 @@ const DashboardPage = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {kpis.data?.map((kpi, index) => (
           <div key={index} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-4">
@@ -201,7 +201,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         {/* Revenue Chart */}
         <div className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -227,15 +227,13 @@ const DashboardPage = () => {
               <LoadingSpinner size="sm" text="Loading chart..." />
             </div>
           ) : (
-            <div className="w-full h-64 sm:h-80 md:h-96">
+            <div className="w-full h-56 sm:h-72 md:h-80">
                <LineChart
                 data={revenueDataSets[dataIndex]}
                 series={seriesConfig}
                 title=""
                 xAxisLabel="Month"
                 yAxisLabel="Revenue ($)"
-                height={window.innerWidth < 640 ? 256 : window.innerWidth < 768 ? 320 : 384}
-                margin={{ top: 20, right: 15, bottom: 60, left: window.innerWidth < 640 ? 50 : 70 }}
                 showGrid={true}
                 showLegend={false}
                 showDots={true}
@@ -259,15 +257,13 @@ const DashboardPage = () => {
               <LoadingSpinner size="sm" text="Loading chart..." />
             </div>
           ) : (
-            <div className="w-full h-64 sm:h-80 md:h-96">
+            <div className="w-full h-56 sm:h-72 md:h-80 flex items-center justify-center">
               <PieChart
                 data={traffic.data?.map(item => ({
                   name: item.name,
                   value: item.value,
                   color: item.color
                 })) || trafficDataSets[dataIndex]}
-                width={window.innerWidth < 640 ? 250 : 280}
-                height={window.innerWidth < 640 ? 180 : 200}
                 showLabels={true}
                 showLegend={true}
                 animate={true}
