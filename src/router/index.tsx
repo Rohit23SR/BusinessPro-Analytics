@@ -1,41 +1,39 @@
 // React Router configuration with TypeScript
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 
 // Layout components
-import RootLayout from '../components/layout/RootLayout';
-import DashboardLayout from '../components/layout/DashboardLayout';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
-import ErrorBoundary from '../components/ui/ErrorBoundary';
-import ProtectedRoute from '../components/auth/ProtectedRoute';
+import RootLayout from '../components/layout/RootLayout'
+import DashboardLayout from '../components/layout/DashboardLayout'
+import LoadingSpinner from '../components/ui/LoadingSpinner'
+import ErrorBoundary from '../components/ui/ErrorBoundary'
+import ProtectedRoute from '../components/auth/ProtectedRoute'
 
 // Lazy load page components for code splitting
-const DashboardPage = lazy(() => import('../pages/DashboardPage'));
-const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
+const DashboardPage = lazy(() => import('../pages/DashboardPage'))
+const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'))
 // const AnalyticsOverview = lazy(() => import('../pages/analytics/OverviewPage'));
-const AnalyticsOverview = lazy(() => import('../pages/OverviewPage'));
+const AnalyticsOverview = lazy(() => import('../pages/OverviewPage'))
 
-const TrafficAnalytics = lazy(() => import('../pages/TrafficPage'));
-const BehaviorAnalytics = lazy(() => import('../pages/BehaviorPage'));
-const ConversionAnalytics = lazy(() => import('../pages/ConversionsPage'));
-const RevenuePage = lazy(() => import('../pages/RevenuePage'));
-const CustomersPage = lazy(() => import('../pages/CustomersPage'));
-const ProductsPage = lazy(() => import('../pages/ProductsPage'));
-const SettingsPage = lazy(() => import('../pages/SettingsPage'));
-const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const TrafficAnalytics = lazy(() => import('../pages/TrafficPage'))
+const BehaviorAnalytics = lazy(() => import('../pages/BehaviorPage'))
+const ConversionAnalytics = lazy(() => import('../pages/ConversionsPage'))
+const RevenuePage = lazy(() => import('../pages/RevenuePage'))
+const CustomersPage = lazy(() => import('../pages/CustomersPage'))
+const ProductsPage = lazy(() => import('../pages/ProductsPage'))
+const SettingsPage = lazy(() => import('../pages/SettingsPage'))
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 // Auth pages
-const LoginPage = lazy(() => import('../pages/LoginPage'));
-const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage'))
+const RegisterPage = lazy(() => import('../pages/RegisterPage'))
 
 // Wrapper component for lazy-loaded components
 const LazyWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<LoadingSpinner />}>
-    <ErrorBoundary>
-      {children}
-    </ErrorBoundary>
+    <ErrorBoundary>{children}</ErrorBoundary>
   </Suspense>
-);
+)
 
 // Router configuration using the new createBrowserRouter API
 export const router = createBrowserRouter([
@@ -167,7 +165,7 @@ export const router = createBrowserRouter([
       </LazyWrapper>
     ),
   },
-]);
+])
 
 // Route configuration for navigation
 export const routes = {
@@ -219,53 +217,53 @@ export const routes = {
     name: 'Settings',
     icon: 'Settings',
   },
-} as const;
+} as const
 
 // Navigation helper functions
 export const navigation = {
   // Get current route info
   getCurrentRoute: (pathname: string) => {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length === 0) return routes.dashboard;
-    
-    const mainSection = segments[1]; // Skip 'dashboard'
-    return routes[mainSection as keyof typeof routes] || routes.dashboard;
+    const segments = pathname.split('/').filter(Boolean)
+    if (segments.length === 0) return routes.dashboard
+
+    const mainSection = segments[1] // Skip 'dashboard'
+    return routes[mainSection as keyof typeof routes] || routes.dashboard
   },
-  
+
   // Get breadcrumb trail
   getBreadcrumbs: (pathname: string) => {
-    const segments = pathname.split('/').filter(Boolean);
-    const breadcrumbs = [];
-    
+    const segments = pathname.split('/').filter(Boolean)
+    const breadcrumbs = []
+
     if (segments.length >= 1 && segments[0] === 'dashboard') {
-      breadcrumbs.push({ name: 'Dashboard', path: '/dashboard' });
-      
+      breadcrumbs.push({ name: 'Dashboard', path: '/dashboard' })
+
       if (segments.length >= 2) {
-        const section = segments[1];
-        const route = routes[section as keyof typeof routes];
+        const section = segments[1]
+        const route = routes[section as keyof typeof routes]
         if (route) {
-          breadcrumbs.push({ name: route.name, path: route.path });
-          
+          breadcrumbs.push({ name: route.name, path: route.path })
+
           // Handle nested routes (like analytics subroutes) - Fixed type safety issue
           if (segments.length >= 3 && 'children' in route && route.children) {
-            const subsection = segments[2];
-            const childRoute = route.children[subsection as keyof typeof route.children];
+            const subsection = segments[2]
+            const childRoute = route.children[subsection as keyof typeof route.children]
             if (childRoute) {
-              breadcrumbs.push({ name: childRoute.name, path: childRoute.path });
+              breadcrumbs.push({ name: childRoute.name, path: childRoute.path })
             }
           }
         }
       }
     }
-    
-    return breadcrumbs;
+
+    return breadcrumbs
   },
-  
+
   // Check if route is active
   isActiveRoute: (pathname: string, routePath: string) => {
-    return pathname === routePath || pathname.startsWith(routePath + '/');
+    return pathname === routePath || pathname.startsWith(routePath + '/')
   },
-  
+
   // Get all main navigation items
   getMainNavItems: () => [
     routes.dashboard,
@@ -275,9 +273,10 @@ export const navigation = {
     routes.products,
     routes.settings,
   ],
-  
-  // Get analytics sub-navigation items
-  getAnalyticsNavItems: () => routes.analytics.children ? Object.values(routes.analytics.children) : [],
-};
 
-export default router;
+  // Get analytics sub-navigation items
+  getAnalyticsNavItems: () =>
+    routes.analytics.children ? Object.values(routes.analytics.children) : [],
+}
+
+export default router

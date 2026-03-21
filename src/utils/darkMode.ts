@@ -4,14 +4,14 @@
  * Detect if dark mode is currently active
  */
 export const isDarkMode = (): boolean => {
-  return document.documentElement.classList.contains('dark');
-};
+  return document.documentElement.classList.contains('dark')
+}
 
 /**
  * Get chart colors based on current theme
  */
 export const getChartColors = () => {
-  const dark = isDarkMode();
+  const dark = isDarkMode()
 
   return {
     // Text colors
@@ -29,8 +29,8 @@ export const getChartColors = () => {
 
     // Background colors
     cardBg: dark ? '#1f2937' : '#ffffff',
-  };
-};
+  }
+}
 
 /**
  * Watch for theme changes and re-render callback
@@ -39,15 +39,15 @@ export const watchThemeChange = (callback: () => void): (() => void) => {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.attributeName === 'class') {
-        callback();
+        callback()
       }
-    });
-  });
+    })
+  })
 
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class']
-  });
+    attributeFilter: ['class'],
+  })
 
-  return () => observer.disconnect();
-};
+  return () => observer.disconnect()
+}

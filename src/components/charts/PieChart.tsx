@@ -1,28 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
-import * as d3 from 'd3';
-import { getChartColors, watchThemeChange } from '../../utils/darkMode';
+import { useEffect, useRef, useState } from 'react'
+import * as d3 from 'd3'
+import { getChartColors, watchThemeChange } from '../../utils/darkMode'
 
 interface PieChartData {
-  name: string;
-  value: number;
-  color?: string;
-  [key: string]: any;
+  name: string
+  value: number
+  color?: string
+  [key: string]: any
 }
 
 interface PieChartProps {
-  data: PieChartData[];
-  width?: number;
-  height?: number;
-  innerRadius?: number;
-  outerRadius?: number;
-  colors?: string[];
-  showLabels?: boolean;
-  showLegend?: boolean;
-  showTooltip?: boolean;
-  animate?: boolean;
-  onHover?: (data: PieChartData | null) => void;
-  onClick?: (data: PieChartData) => void;
-  className?: string;
+  data: PieChartData[]
+  width?: number
+  height?: number
+  innerRadius?: number
+  outerRadius?: number
+  colors?: string[]
+  showLabels?: boolean
+  showLegend?: boolean
+  showTooltip?: boolean
+  animate?: boolean
+  onHover?: (data: PieChartData | null) => void
+  onClick?: (data: PieChartData) => void
+  className?: string
 }
 
 const PieChart = ({
@@ -38,38 +38,38 @@ const PieChart = ({
   animate = true,
   onHover,
   onClick,
-  className = ''
+  className = '',
 }: PieChartProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const chartRendered = useRef<boolean>(false);
-  const [, setThemeUpdate] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null)
+  const chartRendered = useRef<boolean>(false)
+  const [, setThemeUpdate] = useState(0)
 
-  const radius = outerRadius || Math.min(width, height) / 2 - 30; // More padding
-  const total = data.reduce((sum, d) => sum + d.value, 0);
+  const radius = outerRadius || Math.min(width, height) / 2 - 30 // More padding
+  const total = data.reduce((sum, d) => sum + d.value, 0)
 
   // Watch for theme changes and trigger re-render
   useEffect(() => {
     const cleanup = watchThemeChange(() => {
-      setThemeUpdate(prev => prev + 1);
-    });
-    return cleanup;
-  }, []);
+      setThemeUpdate((prev) => prev + 1)
+    })
+    return cleanup
+  }, [])
 
   useEffect(() => {
-    if (!data || data.length === 0 || !containerRef.current) return;
+    if (!data || data.length === 0 || !containerRef.current) return
 
     // Get theme-aware colors
-    const themeColors = getChartColors();
+    const themeColors = getChartColors()
 
     // Reset chart when data changes
-    chartRendered.current = false;
-    
+    chartRendered.current = false
+
     // Clear container
-    d3.select(containerRef.current).selectAll("*").remove();
+    d3.select(containerRef.current).selectAll('*').remove()
 
     // Create responsive container
-    const container = d3.select(containerRef.current);
-    
+    const container = d3.select(containerRef.current)
+
     // Create SVG with responsive viewBox
     const svg = container
       .append('svg')
@@ -78,15 +78,15 @@ const PieChart = ({
       .attr('viewBox', `0 0 ${width} ${height}`)
       .attr('preserveAspectRatio', 'xMidYMid meet')
       .style('max-width', `${width}px`)
-      .style('max-height', `${height}px`);
+      .style('max-height', `${height}px`)
 
-    const g = svg.append("g")
-      .attr("transform", `translate(${width / 2},${height / 2})`);
+    const g = svg.append('g').attr('transform', `translate(${width / 2},${height / 2})`)
 
     // Create tooltip with better styling
-    let tooltip: d3.Selection<HTMLDivElement, unknown, HTMLElement, any> | null = null;
+    let tooltip: d3.Selection<HTMLDivElement, unknown, HTMLElement, any> | null = null
     if (showTooltip) {
-      tooltip = d3.select('body')
+      tooltip = d3
+        .select('body')
         .append('div')
         .attr('class', 'pie-chart-tooltip')
         .style('position', 'absolute')
@@ -100,202 +100,205 @@ const PieChart = ({
         .style('font-size', '12px')
         .style('z-index', '1000')
         .style('transition', 'opacity 0.2s')
-        .style('max-width', '200px');
+        .style('max-width', '200px')
     }
 
     // Color scale
-    const colorScale = d3.scaleOrdinal<string>()
-      .domain(data.map(d => d.name))
-      .range(colors);
+    const colorScale = d3
+      .scaleOrdinal<string>()
+      .domain(data.map((d) => d.name))
+      .range(colors)
 
     // Pie generator
-    const pie = d3.pie<PieChartData>()
-      .value(d => d.value)
-      .sort(null);
+    const pie = d3
+      .pie<PieChartData>()
+      .value((d) => d.value)
+      .sort(null)
 
     // Arc generator with better sizing for mobile
-    const arc = d3.arc<d3.PieArcDatum<PieChartData>>()
+    const arc = d3
+      .arc<d3.PieArcDatum<PieChartData>>()
       .innerRadius(innerRadius)
       .outerRadius(radius)
-      .cornerRadius(2); // Rounded corners
+      .cornerRadius(2) // Rounded corners
 
     // Arc generator for labels - better positioning
-    const labelArc = d3.arc<d3.PieArcDatum<PieChartData>>()
+    const labelArc = d3
+      .arc<d3.PieArcDatum<PieChartData>>()
       .innerRadius(radius + 15)
-      .outerRadius(radius + 15);
+      .outerRadius(radius + 15)
 
     // Generate pie data
-    const pieData = pie(data);
+    const pieData = pie(data)
 
     // Draw arcs
-    const arcs = g.selectAll(".arc")
-      .data(pieData)
-      .enter().append("g")
-      .attr("class", "arc");
+    const arcs = g.selectAll('.arc').data(pieData).enter().append('g').attr('class', 'arc')
 
     // Add paths with hover effects
-    const paths = arcs.append("path")
-      .attr("fill", d => d.data.color || colorScale(d.data.name))
-      .attr("stroke", "white")
-      .attr("stroke-width", 2)
-      .style("cursor", onClick ? "pointer" : "default")
-      .style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.1))");
+    const paths = arcs
+      .append('path')
+      .attr('fill', (d) => d.data.color || colorScale(d.data.name))
+      .attr('stroke', 'white')
+      .attr('stroke-width', 2)
+      .style('cursor', onClick ? 'pointer' : 'default')
+      .style('filter', 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))')
 
     // Enhanced animation
     if (animate) {
       paths
-        .each(function() {
-          (this as any)._current = { startAngle: 0, endAngle: 0 };
+        .each(function () {
+          ;(this as any)._current = { startAngle: 0, endAngle: 0 }
         })
-        .attr("d", function() {
-          return arc({ startAngle: 0, endAngle: 0 } as any) || "";
+        .attr('d', function () {
+          return arc({ startAngle: 0, endAngle: 0 } as any) || ''
         })
         .transition()
         .duration(1200)
         .delay((d, i) => i * 200)
         .ease(d3.easeBackOut)
-        .attrTween("d", function(d) {
-          const interpolateStart = d3.interpolate(0, d.startAngle);
-          const interpolateEnd = d3.interpolate(0, d.endAngle);
-          
-          return function(t) {
+        .attrTween('d', function (d) {
+          const interpolateStart = d3.interpolate(0, d.startAngle)
+          const interpolateEnd = d3.interpolate(0, d.endAngle)
+
+          return function (t) {
             const current = {
               startAngle: interpolateStart(t),
               endAngle: interpolateEnd(t),
-              data: d.data
-            };
-            return arc(current as any) || "";
-          };
-        });
+              data: d.data,
+            }
+            return arc(current as any) || ''
+          }
+        })
     } else {
-      paths.attr("d", arc as any);
+      paths.attr('d', arc as any)
     }
 
     // Enhanced labels with better positioning
     if (showLabels) {
-      const labels = arcs.append("text")
-        .attr("transform", d => {
-          const centroid = labelArc.centroid(d);
-          const angle = (d.startAngle + d.endAngle) / 2;
-          const radius = Math.min(width, height) / 2;
-          
+      const labels = arcs
+        .append('text')
+        .attr('transform', (d) => {
+          const centroid = labelArc.centroid(d)
+          const angle = (d.startAngle + d.endAngle) / 2
+          const radius = Math.min(width, height) / 2
+
           // Adjust label position for better readability
           if (radius < 120) {
-            return `translate(${centroid[0] * 0.8}, ${centroid[1] * 0.8})`;
+            return `translate(${centroid[0] * 0.8}, ${centroid[1] * 0.8})`
           }
-          return `translate(${centroid})`;
+          return `translate(${centroid})`
         })
-        .attr("dy", "0.35em")
-        .attr("text-anchor", d => {
-          const angle = (d.startAngle + d.endAngle) / 2;
-          return angle > Math.PI ? "end" : "start";
+        .attr('dy', '0.35em')
+        .attr('text-anchor', (d) => {
+          const angle = (d.startAngle + d.endAngle) / 2
+          return angle > Math.PI ? 'end' : 'start'
         })
-        .style("font-size", Math.min(width, height) < 200 ? "10px" : "12px")
-        .style("font-weight", "500")
-        .style("fill", themeColors.text)
-        .style("opacity", 0)
-        .style("pointer-events", "none");
+        .style('font-size', Math.min(width, height) < 200 ? '10px' : '12px')
+        .style('font-weight', '500')
+        .style('fill', themeColors.text)
+        .style('opacity', 0)
+        .style('pointer-events', 'none')
 
       if (animate) {
         labels
           .transition()
-          .delay((d, i) => (i * 200) + 1400)
+          .delay((d, i) => i * 200 + 1400)
           .duration(600)
-          .style("opacity", 1)
-          .text(d => {
-            const percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI) * 100);
+          .style('opacity', 1)
+          .text((d) => {
+            const percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100
             if (percentage > 8) {
-              return Math.min(width, height) < 200 ? `${percentage.toFixed(0)}%` : `${percentage.toFixed(0)}%`;
+              return Math.min(width, height) < 200
+                ? `${percentage.toFixed(0)}%`
+                : `${percentage.toFixed(0)}%`
             }
-            return '';
-          });
+            return ''
+          })
       } else {
-        labels
-          .style("opacity", 1)
-          .text(d => {
-            const percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI) * 100);
-            return percentage > 8 ? `${percentage.toFixed(0)}%` : '';
-          });
+        labels.style('opacity', 1).text((d) => {
+          const percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100
+          return percentage > 8 ? `${percentage.toFixed(0)}%` : ''
+        })
       }
     }
 
     // Enhanced interactions
     paths
-      .on("mouseenter", function(event, d) {
+      .on('mouseenter', function (event, d) {
         // Animate this specific path
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("transform", () => {
-            const [x, y] = arc.centroid(d);
-            const scale = 0.08;
-            return `translate(${x * scale}, ${y * scale})`;
+          .attr('transform', () => {
+            const [x, y] = arc.centroid(d)
+            const scale = 0.08
+            return `translate(${x * scale}, ${y * scale})`
           })
-          .style("filter", "drop-shadow(0 4px 8px rgba(0,0,0,0.15))");
+          .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))')
 
         // Call external hover handler if provided
         if (onHover) {
-          onHover(d.data);
+          onHover(d.data)
         }
 
         // Show tooltip with better formatting
         if (tooltip) {
           tooltip
-            .style("opacity", 1)
-            .html(`
+            .style('opacity', 1)
+            .html(
+              `
               <div style="font-weight: 600; color: ${themeColors.text}; margin-bottom: 6px; font-size: 14px;">${d.data.name}</div>
-              <div style="color: ${themeColors.textMuted}; margin-bottom: 2px;">Value: <span style="font-weight: 500;">${d3.format(",")(d.data.value)}</span></div>
+              <div style="color: ${themeColors.textMuted}; margin-bottom: 2px;">Value: <span style="font-weight: 500;">${d3.format(',')(d.data.value)}</span></div>
               <div style="color: ${themeColors.textMuted};">Percentage: <span style="font-weight: 500;">${((d.data.value / total) * 100).toFixed(1)}%</span></div>
-            `)
-            .style("left", (event.pageX + 12) + "px")
-            .style("top", (event.pageY - 12) + "px");
+            `
+            )
+            .style('left', event.pageX + 12 + 'px')
+            .style('top', event.pageY - 12 + 'px')
         }
       })
-      .on("mouseleave", function() {
+      .on('mouseleave', function () {
         // Reset this specific path
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("transform", "translate(0,0)")
-          .style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.1))");
+          .attr('transform', 'translate(0,0)')
+          .style('filter', 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))')
 
         // Call external hover handler
         if (onHover) {
-          onHover(null);
+          onHover(null)
         }
 
         // Hide tooltip
         if (tooltip) {
-          tooltip.style("opacity", 0);
+          tooltip.style('opacity', 0)
         }
       })
-      .on("mousemove", function(event) {
+      .on('mousemove', function (event) {
         // Update tooltip position
         if (tooltip) {
-          tooltip
-            .style("left", (event.pageX + 12) + "px")
-            .style("top", (event.pageY - 12) + "px");
+          tooltip.style('left', event.pageX + 12 + 'px').style('top', event.pageY - 12 + 'px')
         }
       })
-      .on("click", function(event, d) {
+      .on('click', function (event, d) {
         if (onClick) {
-          onClick(d.data);
+          onClick(d.data)
         }
-      });
+      })
 
     // Cleanup function
     return () => {
       if (tooltip) {
-        tooltip.remove();
+        tooltip.remove()
       }
-    };
-  }, [data, width, height, innerRadius, radius, colors, showLabels, animate]);
+    }
+  }, [data, width, height, innerRadius, radius, colors, showLabels, animate])
 
   return (
     <div className={`relative ${className}`}>
-      <div 
-        ref={containerRef} 
-        className="w-full h-full flex items-center justify-center"
+      <div
+        ref={containerRef}
+        className="flex h-full w-full items-center justify-center"
         style={{ minHeight: `${height}px` }}
       />
 
@@ -304,18 +307,16 @@ const PieChart = ({
           <div className="space-y-2 text-sm">
             {data.map((item, index) => (
               <div key={item.name} className="flex items-center justify-between py-1">
-                <div className="flex items-center space-x-2 flex-1 min-w-0">
+                <div className="flex min-w-0 flex-1 items-center space-x-2">
                   <div
-                    className="w-3 h-3 rounded-full flex-shrink-0"
+                    className="h-3 w-3 flex-shrink-0 rounded-full"
                     style={{ backgroundColor: item.color || colors[index % colors.length] }}
                   />
-                  <span className="text-gray-700 font-medium truncate text-xs">{item.name}</span>
+                  <span className="truncate text-xs font-medium text-gray-700">{item.name}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-right flex-shrink-0">
-                  <span className="text-gray-900 font-semibold text-xs">
-                    {item.value}
-                  </span>
-                  <span className="text-gray-500 text-xs">
+                <div className="flex flex-shrink-0 items-center space-x-2 text-right">
+                  <span className="text-xs font-semibold text-gray-900">{item.value}</span>
+                  <span className="text-xs text-gray-500">
                     ({((item.value / total) * 100).toFixed(0)}%)
                   </span>
                 </div>
@@ -326,17 +327,15 @@ const PieChart = ({
       )}
 
       {innerRadius > 0 && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <div className="text-xl font-bold text-gray-900">
-              {d3.format(",")(total)}
-            </div>
+            <div className="text-xl font-bold text-gray-900">{d3.format(',')(total)}</div>
             <div className="text-sm text-gray-500">Total</div>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PieChart;
+export default PieChart

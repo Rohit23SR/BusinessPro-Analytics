@@ -1,9 +1,9 @@
 // components/settings/ProfileTab.tsx
-import { Settings } from '../../types/settings';
+import { Settings } from '../../types/settings'
 
 interface ProfileTabProps {
-  settings: Settings;
-  onSettingChange: <K extends keyof Settings>(key: K, value: Settings[K]) => void;
+  settings: Settings
+  onSettingChange: <K extends keyof Settings>(key: K, value: Settings[K]) => void
 }
 
 export default function ProfileTab({ settings, onSettingChange }: ProfileTabProps) {
@@ -11,15 +11,15 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Profile & Account</h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Theme Preference
           </label>
           <select
             value={settings.theme}
             onChange={(e) => onSettingChange('theme', e.target.value as 'light' | 'dark')}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
@@ -27,13 +27,15 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Language
           </label>
           <select
             value={settings.language}
-            onChange={(e) => onSettingChange('language', e.target.value as 'en' | 'es' | 'fr' | 'de')}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            onChange={(e) =>
+              onSettingChange('language', e.target.value as 'en' | 'es' | 'fr' | 'de')
+            }
+            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
           >
             <option value="en">English</option>
             <option value="es">Spanish</option>
@@ -43,13 +45,13 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Timezone
           </label>
           <select
             value={settings.timezone}
             onChange={(e) => onSettingChange('timezone', e.target.value)}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
           >
             <option value="UTC">UTC</option>
             <option value="UTC-5">Eastern Time</option>
@@ -59,13 +61,15 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Currency
           </label>
           <select
             value={settings.currency}
-            onChange={(e) => onSettingChange('currency', e.target.value as 'USD' | 'EUR' | 'GBP' | 'JPY')}
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            onChange={(e) =>
+              onSettingChange('currency', e.target.value as 'USD' | 'EUR' | 'GBP' | 'JPY')
+            }
+            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
           >
             <option value="USD">USD ($)</option>
             <option value="EUR">EUR (€)</option>
@@ -75,38 +79,46 @@ export default function ProfileTab({ settings, onSettingChange }: ProfileTabProp
         </div>
       </div>
 
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-        <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Privacy Settings</h4>
+      <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
+        <h4 className="text-md mb-4 font-semibold text-gray-900 dark:text-gray-100">
+          Privacy Settings
+        </h4>
         <div className="space-y-4">
           <label className="flex items-center">
             <input
               type="checkbox"
               checked={settings.analytics}
               onChange={(e) => onSettingChange('analytics', e.target.checked)}
-              className="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700"
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">Allow analytics data collection</span>
+            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+              Allow analytics data collection
+            </span>
           </label>
           <label className="flex items-center">
             <input
               type="checkbox"
               checked={settings.marketing}
               onChange={(e) => onSettingChange('marketing', e.target.checked)}
-              className="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700"
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">Receive marketing communications</span>
+            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+              Receive marketing communications
+            </span>
           </label>
           <label className="flex items-center">
             <input
               type="checkbox"
               checked={settings.sharing}
               onChange={(e) => onSettingChange('sharing', e.target.checked)}
-              className="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700"
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">Allow data sharing with partners</span>
+            <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+              Allow data sharing with partners
+            </span>
           </label>
         </div>
       </div>
     </div>
-  );
+  )
 }

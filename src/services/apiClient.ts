@@ -1,15 +1,15 @@
 // Real API Client with Authentication
-import { fetchAuthSession } from 'aws-amplify/auth';
-import { getApiEndpoint } from '../utils/amplifyConfig';
+import { fetchAuthSession } from 'aws-amplify/auth'
+import { getApiEndpoint } from '../utils/amplifyConfig'
 
 interface ApiResponse<T> {
-  data: T;
-  status: number;
-  timestamp: string;
+  data: T
+  status: number
+  timestamp: string
   meta: {
-    requestId: string;
-    version: string;
-  };
+    requestId: string
+    version: string
+  }
 }
 
 /**
@@ -17,13 +17,13 @@ interface ApiResponse<T> {
  */
 const getAuthToken = async (): Promise<string | null> => {
   try {
-    const session = await fetchAuthSession();
-    return session.tokens?.idToken?.toString() || null;
+    const session = await fetchAuthSession()
+    return session.tokens?.idToken?.toString() || null
   } catch (error) {
-    console.error('Failed to get auth token:', error);
-    return null;
+    console.error('Failed to get auth token:', error)
+    return null
   }
-};
+}
 
 /**
  * Make an authenticated API request
@@ -32,36 +32,36 @@ const apiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> => {
-  const baseUrl = getApiEndpoint();
+  const baseUrl = getApiEndpoint()
 
   if (!baseUrl) {
-    throw new Error('API endpoint not configured');
+    throw new Error('API endpoint not configured')
   }
 
-  const token = await getAuthToken();
+  const token = await getAuthToken()
 
   if (!token) {
-    throw new Error('User not authenticated');
+    throw new Error('User not authenticated')
   }
 
-  const url = `${baseUrl}${endpoint}`;
+  const url = `${baseUrl}${endpoint}`
 
   const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': token,
+      Authorization: token,
       ...options.headers,
     },
-  });
+  })
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
   }
 
-  return response.json();
-};
+  return response.json()
+}
 
 /**
  * Settings API endpoints - connects to real backend
@@ -71,7 +71,7 @@ export const settingsApiClient = {
   getPreferences: async () => {
     return apiRequest<Record<string, unknown>>('settings/preferences', {
       method: 'GET',
-    });
+    })
   },
 
   // Update user preferences
@@ -79,14 +79,14 @@ export const settingsApiClient = {
     return apiRequest<Record<string, unknown>>('settings/preferences', {
       method: 'PUT',
       body: JSON.stringify(preferences),
-    });
+    })
   },
 
   // Get dashboard configuration
   getDashboardConfig: async () => {
     return apiRequest<Record<string, unknown>>('settings/dashboard-config', {
       method: 'GET',
-    });
+    })
   },
 
   // Update dashboard configuration
@@ -94,14 +94,14 @@ export const settingsApiClient = {
     return apiRequest<Record<string, unknown>>('settings/dashboard-config', {
       method: 'PUT',
       body: JSON.stringify(config),
-    });
+    })
   },
 
   // Get notification settings
   getNotifications: async () => {
     return apiRequest<Record<string, unknown>>('settings/notifications', {
       method: 'GET',
-    });
+    })
   },
 
   // Update notification settings
@@ -109,8 +109,8 @@ export const settingsApiClient = {
     return apiRequest<Record<string, unknown>>('settings/notifications', {
       method: 'PUT',
       body: JSON.stringify(settings),
-    });
+    })
   },
-};
+}
 
-export default settingsApiClient;
+export default settingsApiClient

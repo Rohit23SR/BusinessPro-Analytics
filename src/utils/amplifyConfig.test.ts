@@ -16,8 +16,7 @@ describe('amplifyConfig', () => {
       const logCalls = consoleSpy.mock.calls.filter(
         (call) =>
           typeof call[0] === 'string' &&
-          (call[0].includes('API configured') ||
-            call[0].includes('Auth configured'))
+          (call[0].includes('API configured') || call[0].includes('Auth configured'))
       )
       expect(logCalls).toHaveLength(0)
 

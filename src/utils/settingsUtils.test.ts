@@ -1,33 +1,36 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { exportSettingsJSON, exportSettingsCSV } from './settingsUtils';
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { exportSettingsJSON, exportSettingsCSV } from './settingsUtils'
 
 // Mock URL.createObjectURL and URL.revokeObjectURL
-const mockCreateObjectURL = vi.fn(() => 'blob:mock-url');
-const mockRevokeObjectURL = vi.fn();
-global.URL.createObjectURL = mockCreateObjectURL;
-global.URL.revokeObjectURL = mockRevokeObjectURL;
+const mockCreateObjectURL = vi.fn(() => 'blob:mock-url')
+const mockRevokeObjectURL = vi.fn()
+global.URL.createObjectURL = mockCreateObjectURL
+global.URL.revokeObjectURL = mockRevokeObjectURL
 
 // Mock DOM elements
-const mockClick = vi.fn();
-const mockAppendChild = vi.fn();
-const mockRemoveChild = vi.fn();
+const mockClick = vi.fn()
+const mockAppendChild = vi.fn()
+const mockRemoveChild = vi.fn()
 
 describe('settingsUtils', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.clearAllMocks()
 
     // Mock document.createElement
-    vi.spyOn(document, 'createElement').mockImplementation(() => ({
-      href: '',
-      download: '',
-      click: mockClick,
-      style: {},
-    } as unknown as HTMLAnchorElement));
+    vi.spyOn(document, 'createElement').mockImplementation(
+      () =>
+        ({
+          href: '',
+          download: '',
+          click: mockClick,
+          style: {},
+        }) as unknown as HTMLAnchorElement
+    )
 
     // Mock document.body
-    vi.spyOn(document.body, 'appendChild').mockImplementation(mockAppendChild);
-    vi.spyOn(document.body, 'removeChild').mockImplementation(mockRemoveChild);
-  });
+    vi.spyOn(document.body, 'appendChild').mockImplementation(mockAppendChild)
+    vi.spyOn(document.body, 'removeChild').mockImplementation(mockRemoveChild)
+  })
 
   describe('exportSettingsJSON', () => {
     it('should create a JSON file with settings data', () => {
@@ -52,24 +55,24 @@ describe('settingsUtils', () => {
         conversionThreshold: 15,
         trafficThreshold: 25,
         apiKey: 'test-key',
-      };
+      }
 
-      exportSettingsJSON(settings);
+      exportSettingsJSON(settings)
 
-      expect(mockCreateObjectURL).toHaveBeenCalledOnce();
-      expect(mockClick).toHaveBeenCalledOnce();
-      expect(mockRevokeObjectURL).toHaveBeenCalledOnce();
-    });
+      expect(mockCreateObjectURL).toHaveBeenCalledOnce()
+      expect(mockClick).toHaveBeenCalledOnce()
+      expect(mockRevokeObjectURL).toHaveBeenCalledOnce()
+    })
 
     it('should handle empty settings object', () => {
-      const settings = {} as any;
+      const settings = {} as any
 
-      exportSettingsJSON(settings);
+      exportSettingsJSON(settings)
 
-      expect(mockCreateObjectURL).toHaveBeenCalledOnce();
-      expect(mockClick).toHaveBeenCalledOnce();
-    });
-  });
+      expect(mockCreateObjectURL).toHaveBeenCalledOnce()
+      expect(mockClick).toHaveBeenCalledOnce()
+    })
+  })
 
   describe('exportSettingsCSV', () => {
     it('should create a CSV file with settings data', () => {
@@ -94,14 +97,14 @@ describe('settingsUtils', () => {
         conversionThreshold: 20,
         trafficThreshold: 30,
         apiKey: 'another-key',
-      };
+      }
 
-      exportSettingsCSV(settings);
+      exportSettingsCSV(settings)
 
-      expect(mockCreateObjectURL).toHaveBeenCalledOnce();
-      expect(mockClick).toHaveBeenCalledOnce();
-      expect(mockRevokeObjectURL).toHaveBeenCalledOnce();
-    });
+      expect(mockCreateObjectURL).toHaveBeenCalledOnce()
+      expect(mockClick).toHaveBeenCalledOnce()
+      expect(mockRevokeObjectURL).toHaveBeenCalledOnce()
+    })
 
     it('should convert boolean values to strings', () => {
       const settings = {
@@ -125,12 +128,12 @@ describe('settingsUtils', () => {
         conversionThreshold: 15,
         trafficThreshold: 25,
         apiKey: 'test-key',
-      };
+      }
 
-      exportSettingsCSV(settings);
+      exportSettingsCSV(settings)
 
       // Verify the blob was created (means conversion happened)
-      expect(mockCreateObjectURL).toHaveBeenCalled();
-    });
-  });
-});
+      expect(mockCreateObjectURL).toHaveBeenCalled()
+    })
+  })
+})

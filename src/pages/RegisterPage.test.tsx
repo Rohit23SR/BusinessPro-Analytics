@@ -67,7 +67,6 @@ describe('RegisterPage', () => {
 
   describe('Password validation', () => {
     it('rejects password shorter than 8 characters', () => {
-      const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
       renderRegisterPage()
 
       fireEvent.change(screen.getByLabelText('Email address'), {
@@ -81,15 +80,11 @@ describe('RegisterPage', () => {
       })
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
-      expect(alertSpy).toHaveBeenCalledWith(
-        expect.stringContaining('8 characters')
-      )
+      expect(screen.getByText(/8 characters/i)).toBeInTheDocument()
       expect(mockRegister).not.toHaveBeenCalled()
-      alertSpy.mockRestore()
     })
 
     it('rejects password without uppercase letter', () => {
-      const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
       renderRegisterPage()
 
       fireEvent.change(screen.getByLabelText('Email address'), {
@@ -103,13 +98,11 @@ describe('RegisterPage', () => {
       })
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
-      expect(alertSpy).toHaveBeenCalled()
+      expect(screen.getByText(/Password must be at least 8 characters/)).toBeInTheDocument()
       expect(mockRegister).not.toHaveBeenCalled()
-      alertSpy.mockRestore()
     })
 
     it('rejects password without lowercase letter', () => {
-      const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
       renderRegisterPage()
 
       fireEvent.change(screen.getByLabelText('Email address'), {
@@ -123,13 +116,11 @@ describe('RegisterPage', () => {
       })
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
-      expect(alertSpy).toHaveBeenCalled()
+      expect(screen.getByText(/Password must be at least 8 characters/)).toBeInTheDocument()
       expect(mockRegister).not.toHaveBeenCalled()
-      alertSpy.mockRestore()
     })
 
     it('rejects password without a number', () => {
-      const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
       renderRegisterPage()
 
       fireEvent.change(screen.getByLabelText('Email address'), {
@@ -143,13 +134,11 @@ describe('RegisterPage', () => {
       })
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
-      expect(alertSpy).toHaveBeenCalled()
+      expect(screen.getByText(/Password must be at least 8 characters/)).toBeInTheDocument()
       expect(mockRegister).not.toHaveBeenCalled()
-      alertSpy.mockRestore()
     })
 
     it('rejects mismatched passwords', () => {
-      const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
       renderRegisterPage()
 
       fireEvent.change(screen.getByLabelText('Email address'), {
@@ -163,9 +152,34 @@ describe('RegisterPage', () => {
       })
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
-      expect(alertSpy).toHaveBeenCalledWith('Passwords do not match')
+      expect(screen.getByText('Passwords do not match')).toBeInTheDocument()
       expect(mockRegister).not.toHaveBeenCalled()
-      alertSpy.mockRestore()
+    })
+
+    it('clears validation error on next submit attempt', () => {
+      renderRegisterPage()
+
+      // First: trigger validation error
+      fireEvent.change(screen.getByLabelText('Password'), {
+        target: { value: 'short' },
+      })
+      fireEvent.change(screen.getByLabelText('Confirm Password'), {
+        target: { value: 'short' },
+      })
+      fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
+      expect(screen.getByText(/8 characters/i)).toBeInTheDocument()
+
+      // Second: fix password and submit again
+      fireEvent.change(screen.getByLabelText('Password'), {
+        target: { value: 'ValidPass1' },
+      })
+      fireEvent.change(screen.getByLabelText('Confirm Password'), {
+        target: { value: 'ValidPass1' },
+      })
+      fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
+
+      // Validation error should be cleared
+      expect(screen.queryByText(/8 characters/i)).not.toBeInTheDocument()
     })
 
     it('accepts valid password meeting all requirements', async () => {
@@ -184,11 +198,7 @@ describe('RegisterPage', () => {
       fireEvent.submit(screen.getByRole('button', { name: /create account/i }))
 
       await waitFor(() => {
-        expect(mockRegister).toHaveBeenCalledWith(
-          'test@example.com',
-          'ValidPass1',
-          ''
-        )
+        expect(mockRegister).toHaveBeenCalledWith('test@example.com', 'ValidPass1', '')
       })
     })
   })
