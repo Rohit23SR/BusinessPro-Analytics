@@ -24,8 +24,8 @@ const RegisterPage = () => {
       return;
     }
 
-    if (password.length < 8) {
-      alert('Password must be at least 8 characters');
+    if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+      alert('Password must be at least 8 characters and include uppercase, lowercase, and a number');
       return;
     }
 
@@ -207,6 +207,9 @@ const RegisterPage = () => {
                   placeholder="Min. 8 characters"
                 />
               </div>
+              <p className="mt-1 text-xs text-gray-500">
+                Must include uppercase, lowercase, and a number
+              </p>
             </div>
 
             <div>

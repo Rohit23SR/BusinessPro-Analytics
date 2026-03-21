@@ -176,8 +176,11 @@ const restApi = new RestApi(infraStack, 'BusinessDashboardApi', {
   restApiName: 'Business Dashboard API',
   description: 'REST API for Business Dashboard with Cognito Authentication',
   defaultCorsPreflightOptions: {
-    allowOrigins: Cors.ALL_ORIGINS,
-    allowMethods: Cors.ALL_METHODS,
+    allowOrigins: [
+      'https://main.d2mh65j13852hw.amplifyapp.com',
+      'http://localhost:5173',
+    ],
+    allowMethods: ['GET', 'PUT', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'X-Api-Key'],
   },
 });

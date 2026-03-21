@@ -20,7 +20,6 @@ export const configureAmplify = async () => {
     // Extract API endpoint
     if (outputs.default?.custom?.API?.endpoint) {
       apiEndpoint = outputs.default.custom.API.endpoint;
-      console.log('API configured:', apiEndpoint);
     }
 
     // Extract Auth config
@@ -38,7 +37,6 @@ export const configureAmplify = async () => {
         },
       });
 
-      console.log('Auth configured:', authConfig.userPoolId);
     }
   } catch (error) {
     console.warn(

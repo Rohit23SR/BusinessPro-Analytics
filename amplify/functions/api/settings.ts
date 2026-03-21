@@ -276,6 +276,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     return createResponse(404, { error: 'Endpoint not found' });
   } catch (error) {
     console.error('Error:', error);
-    return createResponse(500, { error: 'Internal server error', details: String(error) });
+    return createResponse(500, { error: 'Internal server error' });
   }
 };
