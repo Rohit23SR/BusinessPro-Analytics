@@ -59,12 +59,11 @@ awsconfiguration.json
 .env.production.local
 .env.*.local
 
-# Claude Code / AI Assistant files
+# Editor/tool config
 CLAUDE.md
 .claude/
 .claude*
-claude-*
-*.claude
+.playwright-mcp/
 
 # Testing
 coverage
