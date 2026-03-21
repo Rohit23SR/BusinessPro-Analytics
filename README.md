@@ -1,275 +1,127 @@
 # BusinessPro Dashboard
 
-A modern, full-featured business analytics dashboard built with React, TypeScript, and AWS Amplify Gen 2. Track revenue, customers, conversions, and traffic with real-time data visualization and cloud-synced settings.
+A full-featured business analytics dashboard built with React, TypeScript, and AWS Amplify. Real-time KPIs, revenue tracking, customer analytics, traffic breakdowns, and cloud-synced user settings — all with dark mode.
 
 ## Live Demo
 
-**Deployed Application:** [https://main.d2mh65j13852hw.amplifyapp.com](https://main.d2mh65j13852hw.amplifyapp.com)
+[https://main.d2mh65j13852hw.amplifyapp.com](https://main.d2mh65j13852hw.amplifyapp.com)
 
-## Features
+## What it does
 
-### Dashboard & Analytics
-- **Interactive Dashboard** - Overview of key business metrics with KPI cards
-- **Revenue Analytics** - Track revenue trends, set goals, and monitor progress
-- **Traffic Analysis** - Visualize traffic sources with pie charts
-- **Customer Insights** - Monitor customer acquisition and retention
-- **Conversion Tracking** - Analyze conversion rates and funnels
-- **Data Refresh** - One-click data refresh with loading states
-
-### User Management
-- **AWS Cognito Authentication** - Secure login, registration, and password recovery
-- **User Profile Display** - Dynamic user info in sidebar (email-based)
-- **Protected Routes** - Route guards for authenticated areas
-
-### Settings & Personalization
-- **Dark Mode Support** - Full dark theme with seamless light/dark mode switching
-- **Profile Settings** - Theme, language, timezone, currency preferences
-- **Dashboard Customization** - Layout options, widget toggles, auto-refresh
-- **Notification Preferences** - Email alerts, push notifications, alert thresholds
-- **Integration Management** - Connect/disconnect third-party services
-- **Data Export** - Export settings to JSON or CSV
-- **Real-time Sync** - Settings automatically save to AWS backend with optimistic updates
-
-### Backend Integration (AWS Amplify Gen 2)
-- **REST API** - API Gateway with Lambda functions (not GraphQL)
-- **DynamoDB Storage** - NoSQL database for user settings
-- **Cognito Authentication** - JWT token-based API authorization
-- **Auto-save** - Changes persist to cloud with visual feedback
-- **Error Handling** - Graceful error recovery with user notifications
+- **Dashboard** — KPI cards, revenue charts, traffic breakdown, recent activity, top products
+- **Analytics** — Traffic sources, user behavior heatmaps, conversion funnels, cohort analysis
+- **Revenue** — Monthly trends, YoY comparison, custom goal setting with modal
+- **Customers & Products** — Acquisition metrics, LTV, churn, product performance
+- **Settings** — Theme (dark/light), language, timezone, currency, notification thresholds, integrations — all sync to AWS
+- **Auth** — Cognito-based login, registration with email verification, password reset, protected routes
 
 ## Tech Stack
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS
-- **State Management**: TanStack Query (React Query)
-- **Routing**: React Router v6
-- **Charts**: Custom SVG-based chart components (LineChart, MultiSeriesLineChart, PieChart, BarChart, AreaChart, Heatmap, Sankey)
-- **Icons**: Lucide React
-- **Backend**: AWS Amplify Gen 2
-  - AWS Lambda (Node.js)
-  - Amazon API Gateway (REST)
-  - Amazon DynamoDB
-  - Amazon Cognito
+| What | How |
+|------|-----|
+| Frontend | React 18, TypeScript 5, Vite 7 |
+| Styling | Tailwind CSS 3 (dark mode via class) |
+| Data | TanStack Query 5 (caching, refetching, optimistic updates) |
+| Routing | React Router v6 (lazy-loaded pages) |
+| Charts | D3.js + 8 custom SVG components |
+| Auth | AWS Cognito (JWT) |
+| API | API Gateway + Lambda (REST) |
+| Database | DynamoDB |
+| Infra | AWS Amplify Gen 2 |
+| Testing | Vitest + React Testing Library |
+
+## Getting Started
+
+```bash
+git clone <repo-url>
+cd business-dashboard
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173). The app works out of the box with mock data — no AWS setup needed for local development.
+
+### Optional: AWS backend
+
+```bash
+npm install -g @aws-amplify/cli
+amplify configure
+npm run amplify:sandbox
+```
+
+## Scripts
+
+```bash
+npm run dev              # start dev server
+npm run build            # production build
+npm run preview          # preview prod build
+
+npm run lint             # eslint check
+npm run lint:fix         # eslint auto-fix
+npm run format           # prettier format all files
+npm run format:check     # check formatting
+
+npm run test             # vitest watch mode
+npm run test:run         # single run
+npm run test:coverage    # with coverage report
+
+npm run amplify:sandbox  # deploy dev backend
+npm run amplify:deploy   # deploy prod backend
+```
 
 ## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── charts/           # LineChart, MultiSeriesLineChart, PieChart, BarChart, AreaChart, Heatmap, Sankey
-│   ├── layout/           # Header, Sidebar, DashboardLayout
-│   ├── settings/         # ProfileTab, DashboardTab, NotificationsTab, IntegrationsTab
-│   └── ui/               # LoadingSpinner, ErrorBoundary, NotificationPopup
-├── hooks/
-│   ├── useAuth.tsx       # Authentication context and methods
-│   ├── useSettings.ts    # Settings state with backend sync
-│   ├── useDashboard.ts   # Dashboard data queries
-│   └── useNavigation.ts  # URL filters and routing
-├── pages/
-│   ├── DashboardPage.tsx # Main dashboard
-│   ├── RevenuePage.tsx   # Revenue analytics with goal setting
-│   ├── SettingsPage.tsx  # User settings management
-│   └── LoginPage.tsx     # Authentication
-├── services/
-│   └── apiClient.ts      # Authenticated API requests
-├── router/               # Route definitions
-├── types/                # TypeScript interfaces
-├── utils/                # Helper functions
-└── constants/            # App constants
+│   ├── charts/       8 chart types (Line, MultiSeries, Pie, Bar, Area, Heatmap, Sankey, Showcase)
+│   ├── layout/       Header, Sidebar, DashboardLayout, RootLayout
+│   ├── settings/     ProfileTab, DashboardTab, NotificationsTab, IntegrationsTab
+│   ├── auth/         ProtectedRoute
+│   └── ui/           LoadingSpinner, ErrorBoundary, NotificationPopup
+├── hooks/            useAuth, useSettings, useDashboard, useAnalytics, useNavigation, useNotification, useTheme
+├── pages/            13 lazy-loaded pages
+├── services/         apiClient (JWT), mock API, unified API layer
+├── constants/        app-wide constants (timing, breakpoints)
+├── types/            TypeScript interfaces
+├── utils/            amplifyConfig, queryClient, darkMode, responsiveChart
+└── data/             mock data for development
 ```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- AWS Account (for backend features)
-- AWS CLI configured
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd business-dashboard
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:5173](http://localhost:5173)
-
-### AWS Amplify Setup (Optional)
-
-To enable backend features:
-
-1. Install Amplify CLI:
-```bash
-npm install -g @aws-amplify/cli
-```
-
-2. Configure AWS credentials:
-```bash
-amplify configure
-```
-
-3. Deploy sandbox environment:
-```bash
-npm run amplify:sandbox
-```
-
-4. Update `src/utils/amplifyConfig.ts` with your API endpoint
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run test` - Run tests in watch mode
-- `npm run test:run` - Run tests once
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run test:ui` - Open Vitest UI
-- `npm run amplify:sandbox` - Deploy Amplify sandbox
 
 ## Testing
 
-The project uses **Vitest** with **React Testing Library** for unit testing.
-
-### Running Tests
+96 tests across 11 files. Covers auth flows, settings management, layout components, and UI utilities.
 
 ```bash
-# Watch mode (re-runs on file changes)
-npm run test
-
-# Single run
-npm run test:run
-
-# With coverage report
-npm run test:coverage
-
-# Visual UI
-npm run test:ui
+npm run test:run         # run all tests
+npm run test:coverage    # generate coverage report
 ```
 
-### Test Structure
+What's tested:
+- **Auth hook** — login, register, logout, error handling, token retrieval
+- **Login & Register pages** — form rendering, validation, submission, error display
+- **Protected routes** — redirect behavior, loading states
+- **Settings hook** — defaults, updates, reset, integrations, API key generation
+- **Layout** — sidebar nav items, user display, header search, notifications
+- **UI components** — toast notifications, popup rendering
+- **Utilities** — settings export (JSON/CSV), config security
 
-```
-src/
-├── utils/
-│   └── settingsUtils.test.ts    # Utility function tests
-├── hooks/
-│   └── useNotification.test.ts  # Hook behavior tests
-├── components/
-│   └── ui/
-│       └── NotificationPopup.test.tsx  # Component tests
-└── test/
-    └── setup.ts                  # Test setup and mocks
-```
+## Architecture notes
 
-### Test Coverage
-
-Tests cover:
-- **Utility functions** - JSON/CSV export functionality
-- **Custom hooks** - State management, auto-hide behavior, cleanup
-- **UI components** - Rendering, user interactions, accessibility
-- **Edge cases** - Error handling, timeouts, empty states
-
-### Writing Tests
-
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react';
-
-// Component test example
-describe('MyComponent', () => {
-  it('should render correctly', () => {
-    render(<MyComponent />);
-    expect(screen.getByText('Hello')).toBeInTheDocument();
-  });
-});
-
-// Hook test example
-describe('useMyHook', () => {
-  it('should manage state', () => {
-    const { result } = renderHook(() => useMyHook());
-    act(() => {
-      result.current.updateValue('new');
-    });
-    expect(result.current.value).toBe('new');
-  });
-});
-```
-
-## Key Features Explained
-
-### Settings Synchronization
-Settings are automatically saved to AWS when changed:
-- Optimistic updates for instant feedback
-- Minimum 1.2s display time for saving indicator
-- Error recovery with 4-second error display
-- Debounced input fields (800ms) for threshold values
-
-### Authentication Flow
-- Email-based registration with confirmation code
-- Password reset via email
-- JWT tokens stored in session
-- Auto-redirect to login for protected routes
-
-### Goal Setting
-Revenue page includes a goal-setting modal:
-- Currency-formatted input
-- Real-time progress calculation
-- Visual notification on save
-
-### Responsive Design & UI/UX
-- **Mobile-First Architecture** - Optimized for mobile, tablet, and desktop
-- **Responsive Typography** - Consistent font scaling across all screen sizes
-- **Adaptive Navigation** - Desktop sidebar, mobile hamburger menu
-- **Responsive Charts** - All visualizations adapt to screen size
-- **Dark Mode** - Complete theme support with optimized contrast
-- **Fixed Position Notifications** - Toast notifications with zero layout shift
-- **Optimistic UI Updates** - Instant feedback for all user actions
+- Settings use optimistic updates with 1.2s minimum save indicator and error rollback
+- Number inputs in settings are debounced (800ms) to prevent API spam
+- All toast notifications use fixed positioning to avoid layout shift
+- Settings tabs sync with URL params (`?tab=notifications`) for bookmarkability
+- When Amplify isn't configured, the app falls back to mock data seamlessly
+- Dark mode persists via localStorage and applies the `dark` class to `<html>`
 
 ## Environment Variables
 
-Create a `.env` file for local development:
-
 ```env
-VITE_API_ENDPOINT=your-api-gateway-url
+VITE_USE_MOCK_DATA=false          # force mock data mode
+VITE_AWS_REGION=us-east-1         # optional region override
 ```
-
-## API Endpoints
-
-When backend is configured:
-- `GET /settings/preferences` - Fetch user preferences
-- `PUT /settings/preferences` - Update preferences
-- `GET /settings/dashboard-config` - Fetch dashboard settings
-- `PUT /settings/dashboard-config` - Update dashboard settings
-- `GET /settings/notifications` - Fetch notification settings
-- `PUT /settings/notifications` - Update notification settings
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
 
 ## License
 
-This project is private and proprietary.
-
-## Support
-
-For issues and feature requests, please contact the development team.
+Private and proprietary.
