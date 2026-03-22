@@ -59,11 +59,6 @@ awsconfiguration.json
 .env.production.local
 .env.*.local
 
-# Editor/tool config
-CLAUDE.md
-.claude/
-.claude*
-.playwright-mcp/
 
 # Testing
 coverage
