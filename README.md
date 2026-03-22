@@ -1,47 +1,145 @@
+<div align="center">
+
 # BusinessPro Dashboard
 
-A full-featured business analytics dashboard built with React, TypeScript, and AWS Amplify. Real-time KPIs, revenue tracking, customer analytics, traffic breakdowns, and cloud-synced user settings — all with dark mode.
+### A full-featured business analytics dashboard with cloud-synced settings
 
-## Live Demo
+Real-time KPIs, revenue tracking, customer analytics, traffic breakdowns, 8 custom D3 chart types, and dark mode — all backed by AWS.
 
-[https://main.d2mh65j13852hw.amplifyapp.com](https://main.d2mh65j13852hw.amplifyapp.com)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-AWS_Amplify-FF9900?style=for-the-badge&logo=amazon-web-services)](https://main.d2mh65j13852hw.amplifyapp.com)
 
-## What it does
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
+[![D3.js](https://img.shields.io/badge/D3.js-7-F9A03C?style=flat-square&logo=d3.js)](https://d3js.org/)
+[![AWS](https://img.shields.io/badge/AWS-Amplify_Gen_2-FF9900?style=flat-square&logo=amazon-web-services)](https://aws.amazon.com/amplify/)
+[![Tests](https://img.shields.io/badge/Tests-96_passing-brightgreen?style=flat-square)](#testing)
 
-- **Dashboard** — KPI cards, revenue charts, traffic breakdown, recent activity, top products
-- **Analytics** — Traffic sources, user behavior heatmaps, conversion funnels, cohort analysis
-- **Revenue** — Monthly trends, YoY comparison, custom goal setting with modal
-- **Customers & Products** — Acquisition metrics, LTV, churn, product performance
-- **Settings** — Theme (dark/light), language, timezone, currency, notification thresholds, integrations — all sync to AWS
-- **Auth** — Cognito-based login, registration with email verification, password reset, protected routes
+</div>
+
+---
+
+<div align="center">
+  <img src="preview.png" alt="BusinessPro Dashboard — Login" width="100%" />
+  <p><em>Authentication screen — dashboard views are behind Cognito login</em></p>
+</div>
+
+---
+
+## What It Does
+
+| Page | What You See |
+|:-----|:-------------|
+| **Dashboard** | KPI cards, revenue line chart, traffic pie chart, recent activity feed, top products |
+| **Analytics** | Traffic sources, user behavior heatmap (hour x day), conversion funnels, cohort analysis |
+| **Revenue** | Monthly trends, YoY comparison, custom goal setting with modal |
+| **Customers** | New vs returning, lifetime value, churn metrics |
+| **Products** | Top products ranked by sales, revenue, and growth |
+| **Settings** | Theme, language, timezone, notification thresholds, integrations — all synced to DynamoDB |
+
+---
 
 ## Tech Stack
 
-| What | How |
-|------|-----|
-| Frontend | React 18, TypeScript 5, Vite 7 |
-| Styling | Tailwind CSS 3 (dark mode via class) |
-| Data | TanStack Query 5 (caching, refetching, optimistic updates) |
-| Routing | React Router v6 (lazy-loaded pages) |
-| Charts | D3.js + 8 custom SVG components |
-| Auth | AWS Cognito (JWT) |
-| API | API Gateway + Lambda (REST) |
-| Database | DynamoDB |
-| Infra | AWS Amplify Gen 2 |
-| Testing | Vitest + React Testing Library |
+| Layer | Technology |
+|:------|:-----------|
+| **Frontend** | React 18 + TypeScript 5 + Vite 7 |
+| **Styling** | Tailwind CSS 3 (dark mode via `class` strategy) |
+| **Charts** | D3.js 7 — 8 custom SVG components (~2,800 LOC) |
+| **Data** | TanStack Query 5 (caching, stale times, optimistic updates) |
+| **Routing** | React Router v6 (lazy-loaded pages, URL param sync) |
+| **Auth** | AWS Cognito (JWT, email verification, optional MFA) |
+| **API** | API Gateway + Lambda (Node.js) — REST endpoints |
+| **Database** | Amazon DynamoDB (settings persistence) |
+| **Infra** | AWS Amplify Gen 2 (IaC — backend defined in TypeScript) |
+| **Testing** | Vitest + React Testing Library |
+
+---
+
+## Charts (8 Custom D3 Components)
+
+All charts are built from scratch with D3.js and rendered as SVG — no chart library dependency.
+
+| Chart | Used In |
+|:------|:--------|
+| LineChart | Revenue trends, session data |
+| MultiSeriesLineChart | YoY revenue comparison |
+| PieChart | Traffic sources, device breakdown |
+| BarChart | Top products, acquisition channels |
+| AreaChart | User growth, page views |
+| Heatmap | User behavior (hour x day of week) |
+| UserJourneySankey | Conversion flow visualization |
+| ChartShowcase | Interactive demo of all chart types |
+
+---
+
+## Architecture Highlights
+
+- **Optimistic Updates** — UI updates instantly, reverts on API failure, 1.2s minimum save indicator
+- **Debounced Inputs** — 800ms delay on number fields to prevent API spam
+- **Conditional Backend** — Automatically falls back to mock data when AWS isn't configured
+- **Live Data** — 30s auto-refetch with background polling for real-time metrics
+- **URL Param Sync** — Settings tabs bookmarkable via `?tab=notifications`
+- **Fixed Notifications** — All toasts use `position: fixed` to avoid layout shift
+- **Lazy Loading** — All 13 pages loaded via `React.lazy()` + `Suspense`
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── charts/           8 custom D3 SVG chart components
+│   ├── layout/           Header, Sidebar, DashboardLayout, RootLayout
+│   ├── settings/         ProfileTab, DashboardTab, NotificationsTab, IntegrationsTab
+│   ├── auth/             ProtectedRoute
+│   └── ui/               LoadingSpinner, ErrorBoundary, NotificationPopup
+├── hooks/                useAuth, useSettings, useDashboard, useAnalytics, useTheme
+├── pages/                13 lazy-loaded pages
+├── services/             JWT API client, mock API fallback, unified API layer
+├── constants/            app timing, breakpoints, settings defaults
+├── types/                TypeScript interfaces (KPI, Revenue, Traffic, Settings)
+└── data/                 mock data for development
+
+amplify/
+├── backend.ts            IaC: DynamoDB, Lambda, API Gateway, Cognito
+└── functions/api/        dashboard.ts, analytics.ts, settings.ts (Lambda handlers)
+```
+
+---
+
+## Testing
+
+**96 tests** across 11 files covering auth flows, settings management, layout, and utilities.
+
+```bash
+npm run test:run         # single run
+npm run test:coverage    # with coverage report
+```
+
+| Category | What's Tested |
+|:---------|:--------------|
+| **Auth** | Login, register, logout, error handling, token retrieval |
+| **Settings** | Defaults, updates, reset, integrations, API key generation |
+| **Pages** | Login + register forms, validation, submission, error display |
+| **Layout** | Sidebar nav, user display, header search, notifications |
+| **Utilities** | Settings export (JSON/CSV), config security |
+
+---
 
 ## Getting Started
 
 ```bash
-git clone <repo-url>
-cd business-dashboard
+git clone https://github.com/Rohit23SR/BusinessPro-Analytics.git
+cd BusinessPro-Analytics
 npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173). The app works out of the box with mock data — no AWS setup needed for local development.
+Open [http://localhost:5173](http://localhost:5173). Works with mock data out of the box — no AWS setup needed.
 
-### Optional: AWS backend
+### Optional: Connect AWS backend
 
 ```bash
 npm install -g @aws-amplify/cli
@@ -49,78 +147,21 @@ amplify configure
 npm run amplify:sandbox
 ```
 
+---
+
 ## Scripts
 
-```bash
-npm run dev              # start dev server
-npm run build            # production build
-npm run preview          # preview prod build
+| Command | Description |
+|:--------|:------------|
+| `npm run dev` | Vite dev server (port 5173) |
+| `npm run build` | Production build |
+| `npm run test:run` | Run all tests |
+| `npm run test:coverage` | Coverage report |
+| `npm run lint` | ESLint check |
+| `npm run format` | Prettier format |
+| `npm run amplify:sandbox` | Local dev backend |
 
-npm run lint             # eslint check
-npm run lint:fix         # eslint auto-fix
-npm run format           # prettier format all files
-npm run format:check     # check formatting
-
-npm run test             # vitest watch mode
-npm run test:run         # single run
-npm run test:coverage    # with coverage report
-
-npm run amplify:sandbox  # deploy dev backend
-npm run amplify:deploy   # deploy prod backend
-```
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── charts/       8 chart types (Line, MultiSeries, Pie, Bar, Area, Heatmap, Sankey, Showcase)
-│   ├── layout/       Header, Sidebar, DashboardLayout, RootLayout
-│   ├── settings/     ProfileTab, DashboardTab, NotificationsTab, IntegrationsTab
-│   ├── auth/         ProtectedRoute
-│   └── ui/           LoadingSpinner, ErrorBoundary, NotificationPopup
-├── hooks/            useAuth, useSettings, useDashboard, useAnalytics, useNavigation, useNotification, useTheme
-├── pages/            13 lazy-loaded pages
-├── services/         apiClient (JWT), mock API, unified API layer
-├── constants/        app-wide constants (timing, breakpoints)
-├── types/            TypeScript interfaces
-├── utils/            amplifyConfig, queryClient, darkMode, responsiveChart
-└── data/             mock data for development
-```
-
-## Testing
-
-96 tests across 11 files. Covers auth flows, settings management, layout components, and UI utilities.
-
-```bash
-npm run test:run         # run all tests
-npm run test:coverage    # generate coverage report
-```
-
-What's tested:
-- **Auth hook** — login, register, logout, error handling, token retrieval
-- **Login & Register pages** — form rendering, validation, submission, error display
-- **Protected routes** — redirect behavior, loading states
-- **Settings hook** — defaults, updates, reset, integrations, API key generation
-- **Layout** — sidebar nav items, user display, header search, notifications
-- **UI components** — toast notifications, popup rendering
-- **Utilities** — settings export (JSON/CSV), config security
-
-## Architecture notes
-
-- Settings use optimistic updates with 1.2s minimum save indicator and error rollback
-- Number inputs in settings are debounced (800ms) to prevent API spam
-- All toast notifications use fixed positioning to avoid layout shift
-- Settings tabs sync with URL params (`?tab=notifications`) for bookmarkability
-- When Amplify isn't configured, the app falls back to mock data seamlessly
-- Dark mode persists via localStorage and applies the `dark` class to `<html>`
-
-## Environment Variables
-
-```env
-VITE_USE_MOCK_DATA=false          # force mock data mode
-VITE_AWS_REGION=us-east-1         # optional region override
-```
+---
 
 ## License
 
